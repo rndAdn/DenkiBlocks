@@ -5,7 +5,7 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Fenetre extends StateBasedGame{
-	private GameState jeu; // le premier état du jeu (voir GameState.java)
+	private GameState[] jeu = {new Launch(),new ProfilChooser(),new NewProfil(),new Menu(),new LevelChooser(), new Game(1),new HighScore()}; // le premier état du jeu (voir GameState.java)
 	private AppGameContainer container; // le conteneur du jeu
 
 	public Fenetre() {
@@ -18,8 +18,14 @@ public class Fenetre extends StateBasedGame{
 		if (container instanceof AppGameContainer) {
 			this.container = (AppGameContainer) container; // on stocke le conteneur du jeu ! }
 
-			jeu = new Game(1); //le jeu en lui-même !
-			addState(jeu);
+			 //le jeu en lui-même !
+			addState(jeu[0]);
+			addState(jeu[1]);
+			addState(jeu[2]);
+			addState(jeu[3]);
+			addState(jeu[4]);
+			addState(jeu[5]);
+			addState(jeu[6]);
 			container.setShowFPS(true); //on ne veut pas voir le FPS ?? mettre alors "false" ! addState(jeu); //on ajoute le GameState au conteneur !
 		}
 	}

@@ -8,11 +8,15 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 public class Game extends BasicGameState {
-	public static final int ID = 1;
-	public Map map;
+	public static final int ID = 5;
+	public static Map map;
 	private int level;
 	Game(int lvl){
 		this.level = lvl;
+	}
+
+	public static void setLevel(int lvl){
+		map = new Map(lvl);
 	}
 
 	@Override
@@ -21,7 +25,7 @@ public class Game extends BasicGameState {
 	}
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		map = new Map(this.level);
-		System.out.print("HELLO");
+		System.out.print("Game");
 	}
 
 
@@ -49,6 +53,7 @@ public class Game extends BasicGameState {
 		if (input.isKeyPressed(Keyboard.KEY_UP)) {
 			System.out.println("UP");
 			map.moveUp();
+
 		}
 		if (input.isKeyPressed(Keyboard.KEY_DOWN)) {
 			System.out.println("DOWN");
@@ -61,6 +66,10 @@ public class Game extends BasicGameState {
 		if (input.isKeyPressed(Keyboard.KEY_RIGHT)) {
 			System.out.println("RIGHT");
 			map.moveRight();
+
+		}
+		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {
+			game.enterState(Menu.ID);
 		}
 	}
 }

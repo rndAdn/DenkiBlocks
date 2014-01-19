@@ -5,7 +5,6 @@ import moteur.player.Profile;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
