@@ -2,6 +2,8 @@ package moteur.file;
 
 import moteur.map.*;
 import moteur.player.Profile;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -55,8 +57,10 @@ public class FileManager {
 	public static Image loadBgImg() {
 		Image img = null;
 		try {
-				img = ImageIO.read(new File(BG_IMAGE_PATH+"sol2.png"));
-			} catch (IOException e){}
+				img = new Image(BG_IMAGE_PATH + "sol2.png");
+			}catch (SlickException e) {
+			e.printStackTrace();
+		}
 		return img ;
 	}
 
@@ -64,8 +68,8 @@ public class FileManager {
 	public static Image loadBlockImg(int h,int d,int b, int g) {
 		Image img = null;
 		try {
-			img = ImageIO.read(new File(BG_IMAGE_PATH + "/blocks/blue/" + h + "" + d + "" + b + "" + g + ".png"));
-		} catch (IOException e) {
+			img = new Image(BG_IMAGE_PATH + "/blocks/blue/" + h + "" + d + "" + b + "" + g + ".png");
+		}catch (SlickException e) {
 			e.printStackTrace();
 		}
 		return img ;
@@ -73,8 +77,8 @@ public class FileManager {
 	public static Image loadObstacleImg(int h,int d,int b, int g) {
 		Image img = null;
 		try {
-			img = ImageIO.read(new File(BG_IMAGE_PATH+"/obstacle/"+h+""+d+""+b+""+g+".png"));
-		} catch (IOException e) {
+			img = new Image(BG_IMAGE_PATH + "/obstacle/" + h + "" + d + "" + b + "" + g + ".png");
+		}catch (SlickException e) {
 			e.printStackTrace();
 		}
 		return img ;
@@ -198,13 +202,13 @@ public class FileManager {
 			Graphics2D g2 = (Graphics2D) g;
 			for(int i =0;i<map.getHeight(); i++){
 				for(int j =0;j<map.getWidth(); j++){
-					g2.drawImage(map.getCases()[i][j].getImage_Bg(),j*32,i*32,32,32,null);
+					//g2.drawImage(map.getCases()[i][j].getImage_Bg(),j*32,i*32,32,32,null);
 				}
 
 			}
 			for(int i =0;i<map.getHeight(); i++){
 				for(int j =0;j<map.getWidth(); j++){
-					if (map.getCases()[i][j].getImage_Fg() != null)g2.drawImage(map.getCases()[i][j].getImage_Fg(),j*32,i*32,32,32,null);
+					//if (map.getCases()[i][j].getImage_Fg() != null)g2.drawImage(map.getCases()[i][j].getImage_Fg(),j*32,i*32,32,32,null);
 				}
 
 			}

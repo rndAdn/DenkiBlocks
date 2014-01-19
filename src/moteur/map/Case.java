@@ -1,7 +1,7 @@
 package moteur.map;
 
 
-import java.awt.*;
+import org.newdawn.slick.Image;
 
 public abstract class Case {
 
