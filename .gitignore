@@ -1,6 +1,6 @@
 ###JAVA###
 *.class
-*.html
+*/doc/
 
 # Package Files #
 *.jar
