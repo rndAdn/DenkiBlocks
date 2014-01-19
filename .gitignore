@@ -1,6 +1,20 @@
+###JAVA###
 *.class
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+
+.tags
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
