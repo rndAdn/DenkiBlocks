@@ -1,4 +1,4 @@
-package moteur;
+package moteur.player;
 
 public class Profile {
 }

@@ -1,4 +1,7 @@
-package moteur;
+package moteur.file;
+
+import moteur.map.*;
+import moteur.player.Profile;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -49,18 +52,11 @@ public class FileManager {
 		 return null;
 	}
 
-	public static Image loadBgImg(int type) {
+	public static Image loadBgImg() {
 		Image img = null;
-		if (type == 1) {
-			try {
-				img = ImageIO.read(new File(BG_IMAGE_PATH+"obs.png"));
+		try {
+				img = ImageIO.read(new File(BG_IMAGE_PATH+"sol2.png"));
 			} catch (IOException e){}
-		}
-		else {
-			try {
-				img =  ImageIO.read(new File(BG_IMAGE_PATH+"sol.png"));
-			} catch (IOException e){}
-		}
 		return img ;
 	}
 
@@ -68,7 +64,7 @@ public class FileManager {
 	public static Image loadBlockImg(int h,int d,int b, int g) {
 		Image img = null;
 		try {
-			img =  ImageIO.read(new File(BG_IMAGE_PATH+"/blocks/blue/"+h+""+d+""+b+""+g+".png"));
+			img = ImageIO.read(new File(BG_IMAGE_PATH + "/blocks/blue/" + h + "" + d + "" + b + "" + g + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -77,7 +73,7 @@ public class FileManager {
 	public static Image loadObstacleImg(int h,int d,int b, int g) {
 		Image img = null;
 		try {
-			img =  ImageIO.read(new File(BG_IMAGE_PATH+"/obstacle/"+h+""+d+""+b+""+g+".png"));
+			img = ImageIO.read(new File(BG_IMAGE_PATH+"/obstacle/"+h+""+d+""+b+""+g+".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -127,7 +123,18 @@ public class FileManager {
 			String [] tmp = liste.get(i).split(" ");
 			casesTab[i] = new Case[tmp.length];
 			for(int j =0;j<casesTab[i].length; j++){
-				casesTab[i][j] = new Case(Integer.parseInt(tmp[j]));
+				switch (Integer.parseInt(tmp[j])){
+					case 0:
+						casesTab[i][j] = new Vide();
+						break;
+					case 1:
+						casesTab[i][j] = new Obstacle();
+						break ;
+					case 2:
+						casesTab[i][j] = new Block();
+						break;
+				}
+
 			}
 
 		}
@@ -156,6 +163,10 @@ public class FileManager {
 		p = new Pan(map);
 		jFrame.add(p);
 		Scanner sc = new Scanner(System.in);
+		while (sc.nextInt() != 0){
+			//map.MoveDown();
+			p.repaint();
+		}
 
 
 	}
@@ -187,22 +198,17 @@ public class FileManager {
 			Graphics2D g2 = (Graphics2D) g;
 			for(int i =0;i<map.getHeight(); i++){
 				for(int j =0;j<map.getWidth(); j++){
-					g2.drawImage(map.getCases()[i][j].getImage(),j*32,i*32,32,32,null);
+					g2.drawImage(map.getCases()[i][j].getImage_Bg(),j*32,i*32,32,32,null);
 				}
 
 			}
 			for(int i =0;i<map.getHeight(); i++){
 				for(int j =0;j<map.getWidth(); j++){
-					if (map.getCases()[i][j].getBlock() != null)g2.drawImage(map.getCases()[i][j].getBlock().getImage(),j*32,i*32,32,32,null);
+					if (map.getCases()[i][j].getImage_Fg() != null)g2.drawImage(map.getCases()[i][j].getImage_Fg(),j*32,i*32,32,32,null);
 				}
 
 			}
-			for(int i =0;i<map.getHeight(); i++){
-				for(int j =0;j<map.getWidth(); j++){
-					if (map.getCases()[i][j].getObstacle() != null)g2.drawImage(map.getCases()[i][j].getObstacle().getImage(),j*32,i*32,32,32,null);
-				}
 
-			}
 
 		}
 
