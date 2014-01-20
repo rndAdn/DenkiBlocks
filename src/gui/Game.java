@@ -27,16 +27,16 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		g.drawString("Hello World", 100, 50);
+		g.drawString("Hello World", container.getWidth()/2, 5);
 		for(int i =0;i<map.getHeight(); i++){
 			for(int j =0;j<map.getWidth(); j++){
-				map.getCases()[i][j].getImage_Bg().draw(j*32,i*32);
+				map.getCases()[i][j].getImage_Bg().draw(j*(container.getWidth()/map.getWidth()),25+i*((container.getHeight()-25)/map.getHeight()),container.getWidth()/map.getWidth(),(container.getHeight()-25)/map.getHeight());
 			}
 
 		}
 		for(int i =0;i<map.getHeight(); i++){
 			for(int j =0;j<map.getWidth(); j++){
-				if (map.getCases()[i][j].getImage_Fg() != null)map.getCases()[i][j].getImage_Fg().draw(j * 32, i * 32);
+				if (map.getCases()[i][j].getImage_Fg() != null)map.getCases()[i][j].getImage_Fg().draw(j*(container.getWidth()/map.getWidth()),25+i*((container.getHeight()-25)/map.getHeight()),container.getWidth()/map.getWidth(),(container.getHeight()-25)/map.getHeight());
 			}
 
 		}

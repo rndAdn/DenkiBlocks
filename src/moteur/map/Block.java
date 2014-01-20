@@ -1,6 +1,5 @@
 package moteur.map;
 
-import java.awt.*;
 
 public class Block extends Case{
 	private static int nombre_blocks;
@@ -9,6 +8,7 @@ public class Block extends Case{
 
 	public Block() {
 		super(2);
+
 		this.doite = null;
 		this.haut = null;
 		this.bas = null;
@@ -34,7 +34,7 @@ public class Block extends Case{
 
 
 
-	/*SET*/
+/*SET*/
 
 	public static void setNombre_blockspIncr() {
 		Block.nombre_blocks++;
@@ -43,7 +43,4 @@ public class Block extends Case{
 	public void setID(int ID) {
 		this.ID = ID;
 	}
-
-
-
 }
