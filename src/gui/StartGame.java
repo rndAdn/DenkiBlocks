@@ -9,9 +9,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public class StartGame extends BasicGameState {
 	public static final int ID = 0;
 
-	public Button continuer;
-	public Button newgame;
-	public Button quitter;
+	public Button button[] = new Button[3];
+	private final int tailleX = 250;
+	private final int tailleY = 75;
 
 	@Override
 	public int getID() {
@@ -22,33 +22,38 @@ public class StartGame extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.game = game;
-		this.continuer = new Button("Continuer", 120,150,100,50);
-		this.newgame = new Button("Nouvelle Partie", 120,205,100,50);
-		this.quitter = new Button("Quiter", 120,515,100,50);
+
+		for (int i = 0;i<button.length;i++){
+			button[i] = new Button("",(container.getWidth()/2)-tailleX/2,150+(i*(tailleY+15)),tailleX,tailleY);
+		}
+		button[0].namer("Continuer");
+		button[1].namer("Nouvelle Partie");
+		button[2].namer("Quiter");
 	}
 
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		g.drawString("Denki Block", 100, 50);
-		continuer.render(g);
-		newgame.render(g);
-		quitter.render(g);
+		g.setBackground(new Color(1,140,22));
+		g.drawString("Denki Block", 200, 50);
+		for (int i = 0;i<button.length;i++){
+			button[i].render(g);
+		}
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		// pour cette exemple, on a rien à mettre à jour.
 		Input input = container.getInput();
-		continuer.update(container);
-		newgame.update(container);
-		quitter.update(container);
+		for (int i = 0;i<button.length;i++){
+			button[i].update(container);
+		}
 
-		if (continuer.isClicked()) {
+		if (button[0].isClicked()) {
 			game.enterState(ChoixProfil.ID);
 		}
-		else if(newgame.isClicked()) {
+		else if(button[1].isClicked()) {
 			game.enterState(NewProfil.ID);
 		}
-		else if(quitter.isClicked()) {
+		else if(button[2].isClicked()) {
 			System.out.println("Quit Game");
 			System.exit(0);
 		}

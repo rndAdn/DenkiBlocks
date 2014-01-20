@@ -35,7 +35,7 @@ public class Fenetre extends StateBasedGame{
 	public static void main(String[] args){
 		try{
 			AppGameContainer container = new AppGameContainer(new Fenetre());
-			container.setDisplayMode(1024, 1024*9/16, false); // fenêtre de 1280*768 fullscreen =false !!*
+			container.setDisplayMode(900, 1024*9/16, false); // fenêtre de 1280*768 fullscreen =false !!*
 			container.setTargetFrameRate(60); // on règle le FrameRate
 			container.start(); //on démarre le container
 		}

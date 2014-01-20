@@ -1,10 +1,18 @@
 package gui;
 
+import moteur.file.FileManager;
 import moteur.map.Map;
+import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class ChoixNiveau extends BasicGameState {
@@ -18,11 +26,19 @@ public class ChoixNiveau extends BasicGameState {
 		return ID;
 	}
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		levelB = new Button[3];
+		File f = new File(FileManager.LEVEL_FOLDER);
+		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
+		ArrayList<String> name = new ArrayList<>();
 
+		for (File g : files){
+			name.add(g.getName().substring(0,g.getName().length()-4));
+		}
+		Collections.sort(name);
+		map = new Map[name.size()];
+		levelB = new Button[name.size()];
 		for (int i = 0 ; i<map.length;i++){
-			map[i] = new Map(i+1);
-			levelB[i] = new Button(map[i].getName(),120,150+(i*53),100,50);
+			map[i] = new Map(name.get(i));
+			levelB[i] = new Button(map[i].getName(),120,150+(i*53),200,50);
 		}
 	}
 

@@ -16,7 +16,7 @@ public class NewProfil extends BasicGameState {
 		return ID;
 	}
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		play = new Button("PLAY",120,200,100,50);
+		play = new Button("PLAY",120,200,200,50);
 	}
 
 

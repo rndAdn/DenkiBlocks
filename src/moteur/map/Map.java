@@ -5,7 +5,7 @@ import moteur.file.FileManager;
 import java.util.ArrayList;
 
 public class Map{
-	public static final String LEVEL_FOLDER = "data/level/";
+
 	private Case[][] cases;
 	private int width;
 	private int height;
@@ -20,10 +20,10 @@ public class Map{
 	}
 
 	public Map(int level){
-		initialisationMap(LEVEL_FOLDER+level+".lvl");
+		initialisationMap(FileManager.LEVEL_FOLDER+level+".lvl");
 	}
 	public Map(String path){
-		initialisationMap(path);
+		initialisationMap(FileManager.LEVEL_FOLDER+path+".lvl");
 	}
 
 	private void initialisationMap(String path){

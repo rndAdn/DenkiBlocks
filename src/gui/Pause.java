@@ -19,10 +19,10 @@ public class Pause extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		this.reprendre = new Button("Reprendre", 120,150,100,50);
-		this.restartlevel = new Button("Restart", 120,205,100,50);
-		this.menu = new Button("Menu", 120,260,100,50);
-		this.quitter = new Button("Quiter", 120,515,100,50);
+		this.reprendre = new Button("Reprendre", 120,150,200,50);
+		this.restartlevel = new Button("Restart", 120,205,200,50);
+		this.menu = new Button("Menu", 120,260,200,50);
+		this.quitter = new Button("Quiter", 120,515,200,50);
 	}
 
 

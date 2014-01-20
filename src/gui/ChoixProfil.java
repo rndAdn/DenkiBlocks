@@ -1,5 +1,6 @@
 package gui;
 
+import moteur.file.FileManager;
 import moteur.map.Map;
 import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
@@ -7,11 +8,16 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 
 public class ChoixProfil extends BasicGameState {
 	public static final int ID = 1;
 	Button[] profiles;
-	Profile[] joueur = new Profile[3];
+	Profile[] joueur;
 
 	@Override
 	public int getID() {
@@ -20,14 +26,20 @@ public class ChoixProfil extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		profiles = new Button[3];
-
-
-		joueur[0] = new Profile("Renaud.A");
-		joueur[1] = new Profile("Profil 2");
-		joueur[2] = new Profile("Profil 3");
+		File f = new File(FileManager.PROFILE_FOLDER_PATH);
+		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
+		ArrayList<String> name = new ArrayList<>();
+		for (File g : files){
+			name.add(g.getName().substring(0,g.getName().length()-4));
+		}
+		Collections.sort(name);
+		profiles = new Button[name.size()];
+		joueur = new Profile[name.size()];
+		for (int i = 0 ; i<profiles.length;i++){
+			joueur[i] = new Profile(name.get(i));
+		}
 		for (int i = 0 ; i<joueur.length;i++){
-			profiles[i] = new Button(joueur[i].name,120,150+(i*53),100,50);
+			profiles[i] = new Button(joueur[i].name,120,150+(i*53),200,50);
 		}
 
 	}

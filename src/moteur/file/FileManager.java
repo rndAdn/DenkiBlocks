@@ -11,7 +11,9 @@ import java.util.Scanner;
 
 
 public class FileManager {
-	private static final String BG_IMAGE_PATH = "data/images/";
+	public static final String BG_IMAGE_PATH = "data/images/";
+	public static final String PROFILE_FOLDER_PATH = "data/profile/";
+	public static final String LEVEL_FOLDER = "data/level/";
 
 	/**
 	 * Cette fonction charge le fichier dans une ArrayList :
@@ -41,15 +43,39 @@ public class FileManager {
 		return list;
 	}
 
+	/**
+	 * Cette fonction charge le fichier dans une ArrayList :
+	 * @param file Fichier a charger
+	 * @return ArrayList_File
+	 */
+	private static ArrayList<String> fileToArrayList(File file){
+		BufferedReader reader;
+		ArrayList<String> list  = new ArrayList<>();
+		String ligne;
+		try {
+			reader = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e) {
+			System.err.println("error fichier 'FileManager -> fileToArrayList' initialisation reader");
+			return null;
+		}
+		do{
+			try {
+				ligne = reader.readLine();
+			} catch (IOException e) {
+				System.err.println("error fichier 'FileManager -> fileToArrayList' readline");
+				return null;
+			}
+			if (ligne != null && !(ligne.startsWith("#") ||ligne.equalsIgnoreCase("")))list.add(ligne.trim());
+		} while(ligne != null);
+		return list;
+	}
+
 
 	/**
-	 * Cette fonction charge un profile à partir de son chemin (dossier profiles : "data/profile/"):
-	 * @param name Profile a charger
+	 * Cette fonction charge un profile à partir de son nom (dossier profiles : "data/profile/"):
+	 * @param file Profile a charger
 	 * @return loaded_Profil
 	 */
-	public static Profile loadProfile(String name){
-		 return null;
-	}
 
 	public static Image loadBgImg() {
 		Image img = null;
@@ -80,6 +106,21 @@ public class FileManager {
 		}
 		return img ;
 	}
+
+	public static Profile loadProfile(File file){
+		ArrayList<String> profile_List = fileToArrayList(file);
+		Profile profile = new Profile();
+		profile.name = profile_List.get(0);
+		int cur = 1;
+		try{
+			cur = Integer.parseInt(profile_List.get(1));
+		}catch (NumberFormatException e){}
+		profile.current_Level = cur;
+		profile.map = new Map(cur);
+
+		return profile;
+	}
+
 
 	/**
 	 * Cette fonction charge un niveau à partir de son chemin :

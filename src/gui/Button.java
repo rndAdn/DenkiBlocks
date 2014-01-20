@@ -23,7 +23,7 @@ public class Button extends Entity {
 	private Image renderImage;
 
 	private String text;
-	private UnicodeFont font = null;
+	private Font font = null;
 //    private Font font = (button's font);
 
 	private float width;
@@ -81,11 +81,12 @@ public class Button extends Entity {
 	public void render (Graphics gr){
 		renderImage.draw(position.x, position.y, width, height);
 
-		//int margin = ((int) width - getTextWidth(text, font)) / 2;
+		int marginw = ((int) width - getTextWidth(text, font)) / 2;
+		int marginh = ((int) height - font.getHeight(text)) / 2;
 
 		//gr.setFont(font);
-		//gr.setColor(Color.black);
-		gr.drawString(text, button.getMinX() /*+ margin*/, button.getMinY() + 5);
+		gr.setColor(Color.black);
+		gr.drawString(text, button.getMinX() + marginw, button.getMinY()+marginh);
 	}
 
 	public void namer(String s){
