@@ -5,8 +5,6 @@ import moteur.player.Profile;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -56,7 +54,7 @@ public class FileManager {
 	public static Image loadBgImg() {
 		Image img = null;
 		try {
-				img = new Image(BG_IMAGE_PATH + "sol2.png");
+				img = new Image(BG_IMAGE_PATH + "sol.png");
 			}catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -148,7 +146,7 @@ public class FileManager {
 
 	/*Test main open map*/
 
-	public static void main(String [] args){
+	/*public static void main(String [] args){
 		String path = "data/level/1.lvl";
 		int lvl = 1;
 		Map map = new Map(path);
@@ -160,7 +158,7 @@ public class FileManager {
 			System.out.println();
 
 		}*/
-		Fenetre jFrame = new Fenetre();
+		/*Fenetre jFrame = new Fenetre();
 		jFrame.setVisible(true);
 		Pan p;
 		p = new Pan(map);
@@ -195,7 +193,7 @@ public class FileManager {
 		public Map map;
 
 		public Pan(Map map){this.map = map;}
-		@Override
+		/*@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g;
@@ -215,5 +213,5 @@ public class FileManager {
 
 		}
 
-	}
+	}  */
 }

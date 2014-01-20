@@ -1,22 +1,22 @@
 package gui;
 
 import moteur.map.Map;
+import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import sun.tools.jar.resources.jar;
 
 
-public class Game extends BasicGameState {
+public class PlayLevel extends BasicGameState {
 	public static final int ID = 5;
-	public static Map map;
-	private int level;
-	Game(int lvl){
-		this.level = lvl;
+	public static Profile joueur;
+	PlayLevel(){
 	}
 
 	public static void setLevel(int lvl){
-		map = new Map(lvl);
+		joueur.map = new Map(lvl)  ;
 	}
 
 	@Override
@@ -24,23 +24,21 @@ public class Game extends BasicGameState {
 		return ID;
 	}
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		map = new Map(this.level);
-		System.out.print("Game");
 	}
 
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		g.drawString("Hello World", 100, 50);
-		for(int i =0;i<map.getHeight(); i++){
-			for(int j =0;j<map.getWidth(); j++){
-				map.getCases()[i][j].getImage_Bg().draw(j*32,i*32);
+		g.drawString("Joueur :" + PlayLevel.joueur.name + " Niveau :" + PlayLevel.joueur.current_Level, 100, 25);
+		for(int i =0;i<joueur.map.getHeight(); i++){
+			for(int j =0;j<joueur.map.getWidth(); j++){
+				joueur.map.getCases()[i][j].getImage_Bg().draw(j*32,i*32+50);
 			}
 
 		}
-		for(int i =0;i<map.getHeight(); i++){
-			for(int j =0;j<map.getWidth(); j++){
-				if (map.getCases()[i][j].getImage_Fg() != null)map.getCases()[i][j].getImage_Fg().draw(j * 32, i * 32);
+		for(int i =0;i<joueur.map.getHeight(); i++){
+			for(int j =0;j<joueur.map.getWidth(); j++){
+				if (joueur.map.getCases()[i][j].getImage_Fg() != null)joueur.map.getCases()[i][j].getImage_Fg().draw(j * 32, i * 32+50);
 			}
 
 		}
@@ -51,25 +49,21 @@ public class Game extends BasicGameState {
 
 
 		if (input.isKeyPressed(Keyboard.KEY_UP)) {
-			System.out.println("UP");
-			map.moveUp();
+			joueur.map.moveUp();
 
 		}
 		if (input.isKeyPressed(Keyboard.KEY_DOWN)) {
-			System.out.println("DOWN");
-			map.moveDown();
+			joueur.map.moveDown();
 		}
 		if (input.isKeyPressed(Keyboard.KEY_LEFT)) {
-			System.out.println("LEFT");
-			map.moveLeft();
+			joueur.map.moveLeft();
 		}
 		if (input.isKeyPressed(Keyboard.KEY_RIGHT)) {
-			System.out.println("RIGHT");
-			map.moveRight();
+			joueur.map.moveRight();
 
 		}
 		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {
-			game.enterState(Menu.ID);
+			game.enterState(Pause.ID);
 		}
 	}
 }

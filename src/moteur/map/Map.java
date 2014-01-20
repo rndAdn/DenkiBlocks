@@ -43,10 +43,6 @@ public class Map{
 			}
 		}
 		blocksTab = liste.toArray(blocksTab);
-		System.out.println(blocksTab.length);
-		for(int i = 0; i<blocksTab.length;i++){
-			//System.out.println(blocksTab[i].getID());
-		}
 
 
 	}

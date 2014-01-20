@@ -5,11 +5,11 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Fenetre extends StateBasedGame{
-	private GameState[] jeu = {new Launch(),new ProfilChooser(),new NewProfil(),new Menu(),new LevelChooser(), new Game(1),new HighScore()}; // le premier état du jeu (voir GameState.java)
+	private GameState[] jeu = {new StartGame(),new ChoixProfil(),new NewProfil(),new MenuGame(),new ChoixNiveau(), new PlayLevel(),new HighScore(),new Pause()}; // le premier état du jeu (voir GameState.java)
 	private AppGameContainer container; // le conteneur du jeu
 
 	public Fenetre() {
-		super("Mon premier jeu");
+		super("Denki Block");
 	} // le constructeur de la classe
 
 	@Override
@@ -26,6 +26,8 @@ public class Fenetre extends StateBasedGame{
 			addState(jeu[4]);
 			addState(jeu[5]);
 			addState(jeu[6]);
+			addState(jeu[7]);
+			enterState(0);
 			container.setShowFPS(true); //on ne veut pas voir le FPS ?? mettre alors "false" ! addState(jeu); //on ajoute le GameState au conteneur !
 		}
 	}
