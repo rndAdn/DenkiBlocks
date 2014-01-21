@@ -15,9 +15,6 @@ public abstract class Case {
 
 
 	public Case(int type){
-		// type : 0 case Vide
-		// type : 1 case Obstacle
-		// type : 2 case Vide & Block
 		initialisationCase(type);
 
 	}

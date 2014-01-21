@@ -1,7 +1,4 @@
 package moteur.map;
-
-import java.awt.*;
-
 public class Obstacle extends Case{
 
 

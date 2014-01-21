@@ -6,7 +6,6 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import sun.tools.jar.resources.jar;
 
 
 public class PlayLevel extends BasicGameState {
@@ -29,16 +28,19 @@ public class PlayLevel extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
 		g.drawString("Joueur :" + PlayLevel.joueur.name + " Niveau :" + PlayLevel.joueur.current_Level, 100, 25);
+		int xfirst = (container.getWidth()/2)-(joueur.map.getWidth()/2)*32;
+		int yfirst = (container.getHeight()/2)-(joueur.map.getHeight()/2)*32;
 		for(int i =0;i<joueur.map.getHeight(); i++){
 			for(int j =0;j<joueur.map.getWidth(); j++){
-				joueur.map.getCases()[i][j].getImage_Bg().draw(j*32,i*32+50);
+				joueur.map.getCases()[i][j].getImage_Bg().draw(xfirst+j*32,i*32+yfirst);
 			}
 
 		}
 		for(int i =0;i<joueur.map.getHeight(); i++){
 			for(int j =0;j<joueur.map.getWidth(); j++){
-				if (joueur.map.getCases()[i][j].getImage_Fg() != null)joueur.map.getCases()[i][j].getImage_Fg().draw(j * 32, i * 32+50);
+				if (joueur.map.getCases()[i][j].getImage_Fg() != null)joueur.map.getCases()[i][j].getImage_Fg().draw(xfirst+j*32,i*32+yfirst);
 			}
 
 		}
@@ -63,6 +65,7 @@ public class PlayLevel extends BasicGameState {
 
 		}
 		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {
+			container.setPaused(!container.isPaused());
 			game.enterState(Pause.ID);
 		}
 	}

@@ -18,13 +18,11 @@ public class HighScore extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
 		g.drawString("HighScore", 100, 50);
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// pour cette exemple, on a rien à mettre à jour.
 		Input input = container.getInput();
-
-
 		if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {
 			game.enterState(MenuGame.ID);
 		}

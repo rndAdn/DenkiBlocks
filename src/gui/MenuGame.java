@@ -1,5 +1,6 @@
 package gui;
 
+import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -8,10 +9,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MenuGame extends BasicGameState {
 	public static final int ID = 3;
-	public Button current_level;
-	public Button levelChooserB;
-	public Button highScoreB;
-	public Button quitter;
+
+	public Button button[] = new Button[4];
 	@Override
 	public int getID() {
 		return ID;
@@ -19,44 +18,41 @@ public class MenuGame extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		this.current_level = new Button("Level n°", 120,150,200,50);
-		this.levelChooserB = new Button("Choix Niveau", 120,205,200,50);
-		this.highScoreB = new Button("HighScore", 120,260,200,50);
-		this.quitter = new Button("Quiter", 120,515,200,50);
+		for (int i = 0;i<button.length;i++){
+			button[i] = new Button("",(container.getWidth()/2)-200/2,150+(i*(75+15)));
+		}
+		button[1].setName("Choix Niveau");
+		button[2].setName("HighScore");
+		button[3].setName("Quiter");
 	}
 
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
 		g.drawString("Hello "+ PlayLevel.joueur.name+"!", 100, 50);
-		//g.drawString("1. Level n°1 ", 120, 150);
-		current_level.namer("Level n°" + PlayLevel.joueur.current_Level);
-		current_level.render(g);
-		levelChooserB.render(g);
-		highScoreB.render(g);
-		quitter.render(g);
-		//g.drawString("2. LevelChooser ", 120, 250);
-		//g.drawString("3. HighScore ", 120, 350);
+		for (Button aButton : button) {
+			aButton.render(g);
+		}
+		button[0].setName("Level n°" + PlayLevel.joueur.current_Level);
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// pour cette exemple, on a rien à mettre à jour.
 		Input input = container.getInput();
-		current_level.update(container);
-		levelChooserB.update(container);
-		highScoreB.update(container);
-		quitter.update(container);
-		if (current_level.isClicked()) {
+		for (Button aButton : button) {
+			aButton.update(container);
+		}
+		if (button[0].isClicked()) {
 			PlayLevel.setLevel(PlayLevel.joueur.current_Level);
 			game.enterState(PlayLevel.ID);
 		}
-		else if(levelChooserB.isClicked()) {
+		else if(button[1].isClicked()) {
 			PlayLevel.setLevel(2);
 			game.enterState(ChoixNiveau.ID);
 		}
-		else if(highScoreB.isClicked()) {
+		else if(button[2].isClicked()) {
 			game.enterState(HighScore.ID);
 		}
-		else if(quitter.isClicked()) {
+		else if(button[3].isClicked()) {
 			System.out.println("Quit Game");
 			System.exit(0);
 		}

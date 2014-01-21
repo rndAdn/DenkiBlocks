@@ -154,7 +154,7 @@ public class Map{
 
 	/**
 	 * Cette fonction verifie si tout les blocks on fusionnés
-	 * @return
+	 * @return true
 	 */
 	public boolean checkAllFusionne(){
 

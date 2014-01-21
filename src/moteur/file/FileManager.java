@@ -7,7 +7,6 @@ import org.newdawn.slick.SlickException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class FileManager {
@@ -71,11 +70,7 @@ public class FileManager {
 	}
 
 
-	/**
-	 * Cette fonction charge un profile à partir de son nom (dossier profiles : "data/profile/"):
-	 * @param file Profile a charger
-	 * @return loaded_Profil
-	 */
+
 
 	public static Image loadBgImg() {
 		Image img = null;
@@ -107,6 +102,11 @@ public class FileManager {
 		return img ;
 	}
 
+	/**
+	 * Cette fonction charge un profile à partir de son nom (dossier profiles : "data/profile/"):
+	 * @param file Profile a charger
+	 * @return loaded_Profil
+	 */
 	public static Profile loadProfile(File file){
 		ArrayList<String> profile_List = fileToArrayList(file);
 		Profile profile = new Profile();
@@ -114,7 +114,7 @@ public class FileManager {
 		int cur = 1;
 		try{
 			cur = Integer.parseInt(profile_List.get(1));
-		}catch (NumberFormatException e){}
+		}catch (NumberFormatException ignored){}
 		profile.current_Level = cur;
 		profile.map = new Map(cur);
 

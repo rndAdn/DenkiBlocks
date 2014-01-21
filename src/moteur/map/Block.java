@@ -1,7 +1,5 @@
 package moteur.map;
 
-import java.awt.*;
-
 public class Block extends Case{
 	private static int nombre_blocks;
 	private int ID;

@@ -17,7 +17,7 @@ import java.util.Collections;
 public class ChoixProfil extends BasicGameState {
 	public static final int ID = 1;
 	Button[] profiles;
-	Profile[] joueur;
+	Profile[] profilesJoueurs;
 
 	@Override
 	public int getID() {
@@ -26,20 +26,14 @@ public class ChoixProfil extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		File f = new File(FileManager.PROFILE_FOLDER_PATH);
-		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
-		ArrayList<String> name = new ArrayList<>();
-		for (File g : files){
-			name.add(g.getName().substring(0,g.getName().length()-4));
-		}
-		Collections.sort(name);
+
+		ArrayList<String> name = folderToAListe();
 		profiles = new Button[name.size()];
-		joueur = new Profile[name.size()];
-		for (int i = 0 ; i<profiles.length;i++){
-			joueur[i] = new Profile(name.get(i));
-		}
-		for (int i = 0 ; i<joueur.length;i++){
-			profiles[i] = new Button(joueur[i].name,120,150+(i*53),200,50);
+		profilesJoueurs = new Profile[name.size()];
+		for (int i = 0 ; i<profilesJoueurs.length;i++){
+			profilesJoueurs[i] = new Profile(name.get(i));
+			profiles[i] = new Button(profilesJoueurs[i].name,(container.getWidth()/2)-100/2,100+(i*(50+5)));
+			profiles[i].setWidthAndHeight(100, 50);
 		}
 
 	}
@@ -47,36 +41,42 @@ public class ChoixProfil extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
 		g.drawString("Choix Profile ", 100, 50);
-		for (int i = 0 ; i<joueur.length;i++){
+		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profiles[i].render(g);
 		}
 
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// pour cette exemple, on a rien à mettre à jour.
 		Input input = container.getInput();
 
-		for (int i = 0 ; i<joueur.length;i++){
+		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profiles[i].update(container);
 		}
-		for (int i = 0 ; i<joueur.length;i++){
+		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			if (profiles[i].isClicked()) {
-				joueur[i].map = new Map(joueur[i].current_Level);
-				PlayLevel.joueur = joueur[i];
+				profilesJoueurs[i].map = new Map(profilesJoueurs[i].current_Level);
+				PlayLevel.joueur = profilesJoueurs[i];
 				game.enterState(MenuGame.ID);
 			}
 
 		}
-
-
-
-		if (input.isKeyPressed(Keyboard.KEY_NUMPAD1)) {
-
-		}
-		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {
+		if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {
 			game.enterState(StartGame.ID);
 		}
 
 	}
+
+	private ArrayList<String> folderToAListe(){
+		File f = new File(FileManager.PROFILE_FOLDER_PATH);
+		ArrayList<File> files = new ArrayList<>(Arrays.asList(f.listFiles()));
+		ArrayList<String> tmp = new ArrayList<>();
+		for (File g : files){
+			tmp.add(g.getName().substring(0,g.getName().length()-4));
+
+		}
+		Collections.sort(tmp);
+		return tmp;
+	}	
 }
