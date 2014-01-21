@@ -60,17 +60,17 @@ public class PlayLevel extends BasicGameState {
 		}
 
 		if (input.isKeyPressed(Keyboard.KEY_UP)) {
-			joueur.map.moveUp();
+			joueur.map.moveBlock("haut");
 
 		}
 		if (input.isKeyPressed(Keyboard.KEY_DOWN)) {
-			joueur.map.moveDown();
+			joueur.map.moveBlock("bas");
 		}
 		if (input.isKeyPressed(Keyboard.KEY_LEFT)) {
-			joueur.map.moveLeft();
+			joueur.map.moveBlock("gauche");
 		}
 		if (input.isKeyPressed(Keyboard.KEY_RIGHT)) {
-			joueur.map.moveRight();
+			joueur.map.moveBlock("droite");
 
 		}
 		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {

@@ -14,7 +14,7 @@ public abstract class Case {
 	protected Case haut;
 	protected Case bas;
 	protected Case gauche;
-	public boolean moved = false;
+	public boolean canBeMove = false;
 
 
 	public Case(int type){
