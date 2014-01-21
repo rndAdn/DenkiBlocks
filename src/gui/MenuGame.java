@@ -10,6 +10,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MenuGame extends BasicGameState {
 	public static final int ID = 3;
 
+	public Titre titre;
+
 	public Button button[] = new Button[4];
 	@Override
 	public int getID() {
@@ -18,6 +20,7 @@ public class MenuGame extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		titre = new Titre("",(container.getWidth()/2)-200/2,50);
 		for (int i = 0;i<button.length;i++){
 			button[i] = new Button("",(container.getWidth()/2)-200/2,150+(i*(75+15)));
 		}
@@ -30,7 +33,9 @@ public class MenuGame extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		g.drawString("Hello "+ PlayLevel.joueur.name+"!", 100, 50);
+		titre.setName("Hello "+ PlayLevel.joueur.name+"!");
+
+		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}

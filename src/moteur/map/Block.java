@@ -7,14 +7,14 @@ public class Block extends Case{
 
 	public Block() {
 		super(2);
-		this.doite = null;
+		this.droite = null;
 		this.haut = null;
 		this.bas = null;
 		this.gauche = null;
 	}
 	public Block(Block h,Block d,Block b,Block g) {
 		super(2);
-		this.doite = d;
+		this.droite = d;
 		this.haut = h;
 		this.bas = b;
 		this.gauche = g;

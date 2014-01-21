@@ -10,6 +10,7 @@ public class StartGame extends BasicGameState {
 	public static final int ID = 0;
 
 	public Button button[] = new Button[3];
+	public Titre titre;
 
 	@Override
 	public int getID() {
@@ -19,6 +20,7 @@ public class StartGame extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
+		titre = new Titre("Denki Block",(container.getWidth()/2)-200/2,50);
 		for (int i = 0;i<button.length;i++){
 			button[i] = new Button("",(container.getWidth()/2)-250/2,150+(i*(75+15)));
 		}
@@ -30,8 +32,8 @@ public class StartGame extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		g.drawString("Denki Block", 200, 50);
+		Fenetre.image_bg.draw(0, 0, container.getWidth(), container.getHeight());
+		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}

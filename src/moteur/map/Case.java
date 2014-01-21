@@ -3,11 +3,14 @@ package moteur.map;
 
 import org.newdawn.slick.Image;
 
+import java.util.ArrayList;
+
 public abstract class Case {
 
 	private Image image_bg;
 	private Image image_fg;
-	protected Case doite;
+	protected ArrayList<Block> listeBlock;
+	protected Case droite;
 	protected Case haut;
 	protected Case bas;
 	protected Case gauche;
@@ -15,6 +18,7 @@ public abstract class Case {
 
 
 	public Case(int type){
+		listeBlock = new ArrayList<>();
 		initialisationCase(type);
 
 	}

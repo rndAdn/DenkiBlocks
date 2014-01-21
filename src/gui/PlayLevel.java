@@ -11,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class PlayLevel extends BasicGameState {
 	public static final int ID = 5;
 	public static Profile joueur;
+	public Titre titre;
 	PlayLevel(){
 	}
 
@@ -23,13 +24,15 @@ public class PlayLevel extends BasicGameState {
 		return ID;
 	}
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		titre = new Titre("",(container.getWidth()/2)-200/2,0);
 	}
 
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		g.drawString("Joueur :" + PlayLevel.joueur.name + " Niveau :" + PlayLevel.joueur.current_Level, 100, 25);
+		Fenetre.image_bg.draw(0, 0, container.getWidth(), container.getHeight());
+		titre.setName("Joueur :" + PlayLevel.joueur.name + " Niveau :" + PlayLevel.joueur.current_Level);
+		titre.render(g);
 		int xfirst = (container.getWidth()/2)-(joueur.map.getWidth()/2)*32;
 		int yfirst = (container.getHeight()/2)-(joueur.map.getHeight()/2)*32;
 		for(int i =0;i<joueur.map.getHeight(); i++){
@@ -49,6 +52,12 @@ public class PlayLevel extends BasicGameState {
 		// pour cette exemple, on a rien à mettre à jour.
 		Input input = container.getInput();
 
+
+		if (joueur.map.checkAllFusionne()){
+			joueur.current_Level++;
+			setLevel(joueur.current_Level);
+					
+		}
 
 		if (input.isKeyPressed(Keyboard.KEY_UP)) {
 			joueur.map.moveUp();

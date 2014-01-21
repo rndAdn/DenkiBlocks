@@ -13,12 +13,15 @@ public class NewProfil extends BasicGameState {
 	Button play;
 	private TextField textfield;
 
+	public Titre titre;
+
 
 	@Override
 	public int getID() {
 		return ID;
 	}
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		titre = new Titre("Nouveau Profile",(container.getWidth()/2)-200/2,50);
 		textfield = new TextField(container, container.getDefaultFont(), 100, 100, 200, 30);
 		play = new Button("PLAY",320,200);
 	}
@@ -27,7 +30,7 @@ public class NewProfil extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		g.drawString("New Profile", 100, 50);
+		titre.render(g);
 		textfield.render(container,g);
 		play.render(g);
 	}

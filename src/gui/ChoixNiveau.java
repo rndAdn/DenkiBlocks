@@ -17,6 +17,8 @@ public class ChoixNiveau extends BasicGameState {
 
 	Button[] levelB;
 	String[] allMapTab;
+	public Titre titre;
+
 
 	@Override
 	public int getID() {
@@ -26,7 +28,7 @@ public class ChoixNiveau extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 
-
+		titre = new Titre("Choix Niveau",(container.getWidth()/2)-200/2,50);
 		ArrayList<String> nomLevel = folderToAListe();
 
 		levelB = new Button[nomLevel.size()];
@@ -41,8 +43,9 @@ public class ChoixNiveau extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		g.drawString("Choix Niveau", 100, 50);
+		Fenetre.image_bg.draw(0, 0, container.getWidth(), container.getHeight());
+
+		titre.render(g);
 		for (int i = 0 ; i<allMapTab.length;i++){
 			if (i+1 > PlayLevel.joueur.current_Level){
 				levelB[i].setBlockedImage();
@@ -52,7 +55,7 @@ public class ChoixNiveau extends BasicGameState {
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
-
+		
 		for (int i = 0 ; i<allMapTab.length;i++){
 			levelB[i].update(container);
 		}

@@ -1,17 +1,20 @@
 package gui;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tests.xml.Entity;
 
+import java.awt.*;
+import java.awt.Font;
+
 public class Button extends Entity {
 
 	private Image image = null;
 	private Image image_active = null;
+	private Image image_Blocked = null;
 	private Image renderImage;
 
 	private Rectangle button;
@@ -21,8 +24,8 @@ public class Button extends Entity {
 
 
 	private String text;
-	private Font font = null;
-	private java.awt.Font afont = new java.awt.Font("Serif", java.awt.Font.BOLD, 15);
+	Font font = new Font("Bitstream Vera Sans", Font.BOLD, 20);
+	TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
 
 	private float width = 250;
 	private float height = 75;
@@ -32,18 +35,12 @@ public class Button extends Entity {
 
 	public Button (String text, float x, float y){
 		try {
+			this.image_Blocked= new Image("data/images/menuBlocked.png") ;
+			this.image_active = new Image("data/images/menuactive.png") ;
 			this.image = new Image("data/images/menu.png") ;
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-
-		try {
-			this.image_active = new Image("data/images/menuactiver.png") ;
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-
-		font = new UnicodeFont(afont, afont.getSize(), afont.isBold(), afont.isItalic());
 		this.text = text;
 		this.position = new Vector2f(x, y);
 		this.button = new Rectangle(position.x, position.y, width, height);
@@ -73,21 +70,17 @@ public class Button extends Entity {
 	}
 
 	public void setBlockedImage(){
-		try {
-			this.image = new Image("data/images/menuNon.png") ;
-			this.image_active = new Image("data/images/menuNon.png") ;
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+			this.image = image_Blocked;
+			this.image_active = image_Blocked;
 	}
 
 	public void render (Graphics gr){
 		renderImage.draw(position.x, position.y, width, height);
 
 		int marginw = ((int) width - getTextWidth(text, font)) / 2;
-		int marginh = ((int) height - font.getHeight(text)) / 2;
+		int marginh = ((int) height - trueTypeFont.getHeight()) / 2;
 
-		//gr.setFont(font);
+		gr.setFont(trueTypeFont);
 		gr.setColor(Color.black);
 		gr.drawString(text, button.getMinX() + marginw, button.getMinY()+marginh);
 	}
@@ -117,7 +110,7 @@ public class Button extends Entity {
 			if (ch == ' ')
 				width += 2;
 			else
-				width += font.getWidth(String.valueOf(ch));
+				width += trueTypeFont.getWidth(String.valueOf(ch));
 
 		return width;
 	}

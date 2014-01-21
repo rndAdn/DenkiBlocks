@@ -18,6 +18,7 @@ public class ChoixProfil extends BasicGameState {
 	public static final int ID = 1;
 	Button[] profiles;
 	Profile[] profilesJoueurs;
+	public Titre titre;
 
 	@Override
 	public int getID() {
@@ -27,6 +28,7 @@ public class ChoixProfil extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
+		titre = new Titre("Choix Profile",(container.getWidth()/2)-200/2,50);
 		ArrayList<String> name = folderToAListe();
 		profiles = new Button[name.size()];
 		profilesJoueurs = new Profile[name.size()];
@@ -42,7 +44,7 @@ public class ChoixProfil extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		g.drawString("Choix Profile ", 100, 50);
+		titre.render(g);
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profiles[i].render(g);
 		}

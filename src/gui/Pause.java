@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Pause extends BasicGameState {
 	public static final int ID = 7;
 	public Button button[] = new Button[4];
+	public Titre titre;
 	@Override
 	public int getID() {
 		return ID;
@@ -15,6 +16,7 @@ public class Pause extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		titre = new Titre("Pause",(container.getWidth()/2)-200/2,50);
 		for (int i = 0;i<button.length;i++){
 			button[i] = new Button("",(container.getWidth()/2)-200/2,150+(i*(75+15)));
 		}
@@ -27,8 +29,8 @@ public class Pause extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight(),new Color(Color.transparent));
-		g.drawString("Menu Pause "+ PlayLevel.joueur.name+"!", 100, 50);
+		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
+		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}

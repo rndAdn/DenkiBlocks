@@ -84,15 +84,31 @@ public class Map{
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Block){
 					if (i < this.getHeight()-1 && this.cases[i+1][j] instanceof Block){
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i+1][j])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i+1][j]);
+							this.cases[i+1][j].listeBlock = this.cases[i][j].listeBlock;
+						}
 						this.cases[i][j].bas = this.cases[i+1][j];
 					}
 					if (i > 0 && this.cases[i-1][j] instanceof Block){
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i-1][j])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i-1][j]);
+							this.cases[i-1][j].listeBlock = this.cases[i][j].listeBlock;
+						}
 						this.cases[i][j].haut = this.cases[i-1][j];
 					}
 					if (j < this.getWidth()-1 && this.cases[i][j+1] instanceof Block){
-						this.cases[i][j].doite = this.cases[i][j+1];
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i][j+1])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i][j+1]);
+							this.cases[i][j+1].listeBlock = this.cases[i][j].listeBlock;
+						}
+						this.cases[i][j].droite = this.cases[i][j+1];
 					}
 					if (j >0 && this.cases[i][j-1] instanceof Block){
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i][j-1])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i][j-1]);
+							this.cases[i][j-1].listeBlock = this.cases[i][j].listeBlock;
+						}
 						this.cases[i][j].gauche = this.cases[i][j-1];
 					}
 
@@ -103,7 +119,7 @@ public class Map{
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.getCases()[i][j] instanceof Block){
 					int h = getCases()[i][j].haut instanceof Block ?1:0;
-					int d = getCases()[i][j].doite instanceof Block ?1:0;
+					int d = getCases()[i][j].droite instanceof Block ?1:0;
 					int b = getCases()[i][j].bas instanceof Block ?1:0;
 					int g = getCases()[i][j].gauche instanceof Block ?1:0;
 					this.getCases()[i][j].setImage_Fg(FileManager.loadBlockImg(h, d, b, g));
@@ -127,7 +143,7 @@ public class Map{
 						this.cases[i][j].haut = this.cases[i-1][j];
 					}
 					if (j < this.getWidth()-1 && this.cases[i][j+1] instanceof Obstacle){
-						this.cases[i][j].doite = this.cases[i][j+1];
+						this.cases[i][j].droite = this.cases[i][j+1];
 					}
 					if (j >0 && this.cases[i][j-1] instanceof Obstacle){
 						this.cases[i][j].gauche = this.cases[i][j-1];
@@ -140,7 +156,7 @@ public class Map{
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.getCases()[i][j] instanceof Obstacle){
 					int h = getCases()[i][j].haut instanceof Obstacle ?1:0;
-					int d = getCases()[i][j].doite instanceof Obstacle ?1:0;
+					int d = getCases()[i][j].droite instanceof Obstacle ?1:0;
 					int b = getCases()[i][j].bas instanceof Obstacle ?1:0;
 					int g = getCases()[i][j].gauche instanceof Obstacle ?1:0;
 					this.getCases()[i][j].setImage_Fg(FileManager.loadObstacleImg(h, d, b, g));
@@ -157,13 +173,136 @@ public class Map{
 	 * @return true
 	 */
 	public boolean checkAllFusionne(){
-
-		return true;
+		boolean seul = false;
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block && this.cases[i][j].bas == null && this.cases[i][j].haut == null && this.cases[i][j].gauche == null && this.cases[i][j].droite == null ) seul = true;
+			}
+		}
+		return !seul;
 	}
-	public boolean moveDown(){
+
+	private void canMoveDown(){
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				this.cases[i][j].moved = true;
+			}
+		}
 		for(int i =this.getHeight()-1;i>=0; i--){
 			for(int j =0;j<this.getWidth(); j++){
-				if (this.cases[i][j] instanceof Block && !( this.cases[i+1][j] instanceof Obstacle)){
+				if (this.cases[i][j] instanceof Block && this.cases[i+1][j] instanceof Obstacle)this.cases[i][j].moved = false;
+			}
+		}
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block){
+					boolean tmp = true;
+					for (Block b : this.cases[i][j].listeBlock){
+						  if (!b.moved) tmp = false;
+					}
+					if (!tmp){
+						for (Block b : this.cases[i][j].listeBlock){
+							b.moved = false;
+						}
+					}
+				}
+			}
+		}
+
+	}
+	private void canMoveUp(){
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				this.cases[i][j].moved = true;
+			}
+		}
+		for(int i =1;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block && this.cases[i-1][j] instanceof Obstacle)this.cases[i][j].moved = false;
+			}
+		}
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block){
+					boolean tmp = true;
+					for (Block b : this.cases[i][j].listeBlock){
+						if (!b.moved) tmp = false;
+					}
+					if (!tmp){
+						for (Block b : this.cases[i][j].listeBlock){
+							b.moved = false;
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+
+	private void canMoveRight(){
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				this.cases[i][j].moved = true;
+			}
+		}
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =this.getWidth()-1;j>0; j--){
+				if (this.cases[i][j] instanceof Block && this.cases[i][j+1] instanceof Obstacle)this.cases[i][j].moved = false;
+			}
+		}
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block){
+					boolean tmp = true;
+					for (Block b : this.cases[i][j].listeBlock){
+						if (!b.moved) tmp = false;
+					}
+					if (!tmp){
+						for (Block b : this.cases[i][j].listeBlock){
+							b.moved = false;
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	private void canMoveLeft(){
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				this.cases[i][j].moved = true;
+			}
+		}
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =1;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block && this.cases[i][j-1] instanceof Obstacle)this.cases[i][j].moved = false;
+			}
+		}
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block){
+					boolean tmp = true;
+					for (Block b : this.cases[i][j].listeBlock){
+						if (!b.moved) tmp = false;
+					}
+					if (!tmp){
+						for (Block b : this.cases[i][j].listeBlock){
+							b.moved = false;
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	public boolean moveDown(){
+		canMoveDown();
+		for(int i =this.getHeight()-1;i>=0; i--){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block && this.cases[i][j].moved){
 					this.cases[i+1][j] = this.cases[i][j];
 					this.cases[i][j] = new Vide();
 				}
@@ -173,9 +312,10 @@ public class Map{
 		return true;
 	}
 	public boolean moveUp(){
+		canMoveUp();
 		for(int i =1;i<this.height; i++){
 			for(int j =0;j<this.getWidth(); j++){
-				if (this.cases[i][j] instanceof Block && !( this.cases[i-1][j] instanceof Obstacle)){
+				if (this.cases[i][j] instanceof Block &&this.cases[i][j].moved){
 					this.cases[i-1][j] = this.cases[i][j];
 					this.cases[i][j] = new Vide();
 				}
@@ -185,9 +325,10 @@ public class Map{
 		return true;
 	}
 	public boolean moveRight(){
+		canMoveRight();
 		for(int i =1;i<this.height; i++){
 			for(int j =this.getWidth()-1;j>0; j--){
-				if (this.cases[i][j] instanceof Block && !( this.cases[i][j+1] instanceof Obstacle)){
+				if (this.cases[i][j] instanceof Block && this.cases[i][j].moved){
 					this.cases[i][j+1] = this.cases[i][j];
 					this.cases[i][j] = new Vide();
 				}
@@ -197,9 +338,10 @@ public class Map{
 		return true;
 	}
 	public boolean moveLeft(){
+		canMoveLeft();
 		for(int i =this.getHeight()-1;i>0; i--){
 			for(int j = 0;j<this.getWidth()-1; j++){
-				if (this.cases[i][j] instanceof Block && !( this.cases[i][j-1] instanceof Obstacle)){
+				if (this.cases[i][j] instanceof Block && this.cases[i][j].moved){
 					this.cases[i][j-1] = this.cases[i][j];
 					this.cases[i][j] = new Vide();
 				}
