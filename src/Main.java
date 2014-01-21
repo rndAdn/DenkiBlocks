@@ -5,7 +5,12 @@ import org.newdawn.slick.SlickException;
 import java.awt.*;
 
 public class Main {
+
 	public static void main(String[] args){
+		System.out.println(Integer.toBinaryString(0));
+		System.out.println(Integer.toBinaryString(2));
+		System.out.println(Integer.toBinaryString(7));
+		System.out.println(Integer.toBinaryString(15));
 		String fonts[] =
 				GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 

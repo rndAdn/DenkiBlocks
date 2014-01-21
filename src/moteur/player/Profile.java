@@ -1,5 +1,6 @@
 package moteur.player;
 
+import gui.Fenetre;
 import moteur.file.FileManager;
 import moteur.map.Map;
 
@@ -13,6 +14,8 @@ public class Profile {
 	public Map map;
 	public String name;
 	public int current_Level;
+	public int max_level;
+	public String[] color_themes = {"bleu","normal"};
 
 	public Profile(String name){
 		this.name = name;
@@ -27,7 +30,7 @@ public class Profile {
 	}
 
 	public void initialisation(String name){
-		File f = new File(FileManager.PROFILE_FOLDER_PATH+name+".pfl");
+		File f = new File(Fenetre.PROFILE_FOLDER+name+".pfl");
 		if(f.exists()) {
 			Profile profil = FileManager.loadProfile(f);
 			this.name = profil.name;
@@ -35,7 +38,7 @@ public class Profile {
 			this.map = profil.map;
 		}
 		else{
-			File destination = new File(FileManager.PROFILE_FOLDER_PATH+name+".pfl");
+			File destination = new File(Fenetre.PROFILE_FOLDER+name+".pfl");
 
 			BufferedWriter output = null;
 			try {
@@ -62,8 +65,10 @@ public class Profile {
 			this.current_Level =1;
 			this.map = new Map(1);
 		}
-		// Si le profile existe on le charge
-		// Sinon on creer le nouveau profil et son fichier
+		Map.color_themes = color_themes;
+		Map.solImage =  FileManager.loadSolImg(color_themes[1]);
+		Map.blockImages = FileManager.loadBlockImgT(color_themes[0]);
+		Map.oblstacleImages= FileManager.loadObstacleImgT(color_themes[1]);
 
 
 	}

@@ -9,11 +9,6 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tests.xml.Entity;
 
 public class Titre extends Entity {
-
-	private Image image = null;
-	private Image image_active = null;
-	private Image renderImage;
-
 	private Rectangle button;
 
 	private String text;

@@ -72,7 +72,7 @@ public class ChoixNiveau extends BasicGameState {
 	}
 
 	private ArrayList<String> folderToAListe(){
-		File f = new File(FileManager.LEVEL_FOLDER);
+		File f = new File(Fenetre.LEVEL_FOLDER);
 		ArrayList<File> files = new ArrayList<>(Arrays.asList(f.listFiles()));
 		ArrayList<String> tmp = new ArrayList<>();
 		for (File g : files){

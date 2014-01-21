@@ -1,6 +1,5 @@
 package gui;
 
-import moteur.file.FileManager;
 import moteur.map.Map;
 import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
@@ -71,7 +70,7 @@ public class ChoixProfil extends BasicGameState {
 	}
 
 	private ArrayList<String> folderToAListe(){
-		File f = new File(FileManager.PROFILE_FOLDER_PATH);
+		File f = new File(Fenetre.PROFILE_FOLDER);
 		ArrayList<File> files = new ArrayList<>(Arrays.asList(f.listFiles()));
 		ArrayList<String> tmp = new ArrayList<>();
 		for (File g : files){

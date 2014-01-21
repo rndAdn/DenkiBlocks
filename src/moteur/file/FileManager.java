@@ -1,5 +1,6 @@
 package moteur.file;
 
+import gui.Fenetre;
 import moteur.map.*;
 import moteur.player.Profile;
 import org.newdawn.slick.Image;
@@ -10,9 +11,6 @@ import java.util.ArrayList;
 
 
 public class FileManager {
-	public static final String BG_IMAGE_PATH = "data/images/";
-	public static final String PROFILE_FOLDER_PATH = "data/profile/";
-	public static final String LEVEL_FOLDER = "data/level/";
 
 	/**
 	 * Cette fonction charge le fichier dans une ArrayList :
@@ -72,10 +70,10 @@ public class FileManager {
 
 
 
-	public static Image loadBgImg() {
+	public static Image loadSolImg(String theme_decor) {
 		Image img = null;
 		try {
-				img = new Image(BG_IMAGE_PATH + "sol.png");
+				img = new Image(Fenetre.IMAGE_FOLDER+ "decors/" +theme_decor+ "/sol.png");
 			}catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -83,24 +81,39 @@ public class FileManager {
 	}
 
 
-	public static Image loadBlockImg(int h,int d,int b, int g) {
-		Image img = null;
-		try {
-			img = new Image(BG_IMAGE_PATH + "/blocks/blue/" + h + "" + d + "" + b + "" + g + ".png");
-		}catch (SlickException e) {
-			e.printStackTrace();
+
+	public static Image[] loadBlockImgT(String theme_block) {
+		Image[] img = new Image[16];
+
+		for (int i = 0;i<16;i++){
+			String name = Integer.toBinaryString(i);
+			while (name.length()<4)name = "0"+name;
+			try {
+				img[i] = new Image(Fenetre.IMAGE_FOLDER + "blocks/"+theme_block+"/"+name+".png");
+			}catch (SlickException e) {
+				e.printStackTrace();
+			}
 		}
 		return img ;
 	}
-	public static Image loadObstacleImg(int h,int d,int b, int g) {
-		Image img = null;
-		try {
-			img = new Image(BG_IMAGE_PATH + "/obstacle/" + h + "" + d + "" + b + "" + g + ".png");
-		}catch (SlickException e) {
-			e.printStackTrace();
+
+	public static Image[] loadObstacleImgT(String theme_decor) {
+		Image[] img = new Image[16];
+
+		for (int i = 0;i<16;i++){
+			String name = Integer.toBinaryString(i);
+			while (name.length()<4)name = "0"+name;
+			try {
+				img[i] = new Image(Fenetre.IMAGE_FOLDER + "decors/"+theme_decor+ "/obstacle/"+name+".png");
+			}catch (SlickException e) {
+				e.printStackTrace();
+			}
 		}
 		return img ;
 	}
+
+
+
 
 	/**
 	 * Cette fonction charge un profile à partir de son nom (dossier profiles : "data/profile/"):

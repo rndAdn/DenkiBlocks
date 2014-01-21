@@ -6,8 +6,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tests.xml.Entity;
-
-import java.awt.*;
 import java.awt.Font;
 
 public class Button extends Entity {
@@ -35,9 +33,9 @@ public class Button extends Entity {
 
 	public Button (String text, float x, float y){
 		try {
-			this.image_Blocked= new Image("data/images/menuBlocked.png") ;
-			this.image_active = new Image("data/images/menuactive.png") ;
-			this.image = new Image("data/images/menu.png") ;
+			this.image_Blocked= new Image(Fenetre.MENU_FOLDER+"menuBlocked.png") ;
+			this.image_active = new Image(Fenetre.MENU_FOLDER+"menuactive.png") ;
+			this.image = new Image(Fenetre.MENU_FOLDER+"menu.png") ;
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

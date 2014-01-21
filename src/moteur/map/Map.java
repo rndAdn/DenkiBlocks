@@ -1,6 +1,8 @@
 package moteur.map;
 
+import gui.Fenetre;
 import moteur.file.FileManager;
+import org.newdawn.slick.Image;
 
 import java.util.ArrayList;
 
@@ -11,6 +13,10 @@ public class Map{
 	private int height;
 	private String name;
 	private Block[] blocksTab = new Block[5];
+	static public String[] color_themes;
+	public static Image solImage;
+	public static Image [] blockImages;
+	public static Image [] oblstacleImages;
 
 	public Map(){
 		this.cases = null;
@@ -20,10 +26,10 @@ public class Map{
 	}
 
 	public Map(int level){
-		initialisationMap(FileManager.LEVEL_FOLDER+level+".lvl");
+		initialisationMap(Fenetre.LEVEL_FOLDER+level+".lvl");
 	}
 	public Map(String path){
-		initialisationMap(FileManager.LEVEL_FOLDER+path+".lvl");
+		initialisationMap(Fenetre.LEVEL_FOLDER+path+".lvl");
 	}
 
 	private void initialisationMap(String path){
@@ -51,10 +57,12 @@ public class Map{
 	 * Charge les images de chaque case
 	 */
 	private void loadImages(){
+		if (solImage==null || blockImages == null|| oblstacleImages == null)return;
+
 		/*Chargement du sol*/
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
-				this.getCases()[i][j].setImage_Bg(FileManager.loadBgImg());
+				this.getCases()[i][j].setImage_Bg(solImage);
 			}
 
 		}
@@ -62,7 +70,7 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Block){
-					this.getCases()[i][j].setImage_Fg(FileManager.loadBlockImg(0, 0, 0, 0));
+					this.getCases()[i][j].setImage_Fg(blockImages[0]);
 				}
 
 			}
@@ -72,7 +80,7 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Obstacle){
-					this.getCases()[i][j].setImage_Fg(FileManager.loadObstacleImg(0, 0, 0, 0));
+					this.getCases()[i][j].setImage_Fg(oblstacleImages[0]);
 				}
 
 			}
@@ -125,11 +133,12 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.getCases()[i][j] instanceof Block){
-					int h = getCases()[i][j].haut instanceof Block ?1:0;
-					int d = getCases()[i][j].droite instanceof Block ?1:0;
-					int b = getCases()[i][j].bas instanceof Block ?1:0;
-					int g = getCases()[i][j].gauche instanceof Block ?1:0;
-					this.getCases()[i][j].setImage_Fg(FileManager.loadBlockImg(h, d, b, g));
+					int total=0;
+					total += getCases()[i][j].haut instanceof Block ?8:0;
+					total += getCases()[i][j].droite instanceof Block ?4:0;
+					total += getCases()[i][j].bas instanceof Block ?2:0;
+					total += getCases()[i][j].gauche instanceof Block ?1:0;
+					this.getCases()[i][j].setImage_Fg(blockImages[total]);
 				}
 
 			}
@@ -164,11 +173,12 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.getCases()[i][j] instanceof Obstacle){
-					int h = getCases()[i][j].haut instanceof Obstacle ?1:0;
-					int d = getCases()[i][j].droite instanceof Obstacle ?1:0;
-					int b = getCases()[i][j].bas instanceof Obstacle ?1:0;
-					int g = getCases()[i][j].gauche instanceof Obstacle ?1:0;
-					this.getCases()[i][j].setImage_Fg(FileManager.loadObstacleImg(h, d, b, g));
+					int total=0;
+					total += getCases()[i][j].haut instanceof Obstacle ?8:0;
+					total += getCases()[i][j].droite instanceof Obstacle ?4:0;
+					total += getCases()[i][j].bas instanceof Obstacle ?2:0;
+					total += getCases()[i][j].gauche instanceof Obstacle ?1:0;
+					this.getCases()[i][j].setImage_Fg(oblstacleImages[total]);
 				}
 
 			}
