@@ -7,8 +7,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
-public class MenuGame extends BasicGameState {
-	public static final int ID = 3;
+public class NiveauSuivant extends BasicGameState {
+	public static final int ID = 8;
 
 	public Titre titre;
 
@@ -24,16 +24,17 @@ public class MenuGame extends BasicGameState {
 		for (int i = 0;i<button.length;i++){
 			button[i] = new Button("",(container.getWidth()/2)-200/2,150+(i*(75+15)));
 		}
-		button[1].setName("Choix Niveau");
-		button[2].setName("HighScore");
-		button[3].setName("Quiter");
+
+		button[1].setName("Recommencer");
+		button[2].setName("Choix Niveau");
+		button[3].setName("Menu");
 	}
 
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		titre.setName("Hello "+ PlayLevel.joueur.name+"!");
+		titre.setName("BRAVO "+ PlayLevel.joueur.name+"!");
 
 		titre.render(g);
 		for (Button aButton : button) {
@@ -51,14 +52,14 @@ public class MenuGame extends BasicGameState {
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {
-			game.enterState(ChoixNiveau.ID);
+			PlayLevel.setLevel(PlayLevel.joueur.current_Level-1);
+			game.enterState(PlayLevel.ID);
 		}
 		else if(button[2].isClicked()) {
-			game.enterState(HighScore.ID);
+			game.enterState(ChoixNiveau.ID);
 		}
 		else if(button[3].isClicked()) {
-			System.out.println("Quit Game");
-			System.exit(0);
+			game.enterState(MenuGame.ID);
 		}
 		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {
 			game.enterState(StartGame.ID);

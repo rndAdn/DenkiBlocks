@@ -5,7 +5,7 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Fenetre extends StateBasedGame{
-	private GameState[] jeu = {new StartGame(),new ChoixProfil(),new NewProfil(),new MenuGame(),new ChoixNiveau(), new PlayLevel(),new HighScore(),new Pause()}; // le premier état du jeu (voir GameState.java)
+	private GameState[] jeu = {new StartGame(),new ChoixProfil(),new NewProfil(),new MenuGame(),new ChoixNiveau(), new PlayLevel(),new HighScore(),new Pause(),new NiveauSuivant()}; // le premier état du jeu (voir GameState.java)
 
 	public static Image image_bg = null;
 	public Fenetre() {

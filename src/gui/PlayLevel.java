@@ -54,8 +54,10 @@ public class PlayLevel extends BasicGameState {
 
 
 		if (joueur.map.checkAllFusionne()){
+
 			joueur.current_Level++;
 			setLevel(joueur.current_Level);
+			game.enterState(NiveauSuivant.ID);
 					
 		}
 
