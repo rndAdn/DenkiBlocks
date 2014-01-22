@@ -44,7 +44,7 @@ public class Pause extends BasicGameState {
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {
-			PlayLevel.setLevel(PlayLevel.joueur.current_Level);
+			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level);
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[2].isClicked()) {

@@ -26,6 +26,7 @@ public class Profile {
 		this.name = "";
 		map = new Map(1);
 		current_Level = 1;
+		max_level = 1;
 
 	}
 
@@ -35,6 +36,7 @@ public class Profile {
 			Profile profil = FileManager.loadProfile(f);
 			this.name = profil.name;
 			this.current_Level = profil.current_Level;
+			this.max_level = profil.current_Level;
 			this.map = profil.map;
 		}
 		else{
@@ -63,6 +65,7 @@ public class Profile {
 			}
 			this.name = name;
 			this.current_Level =1;
+			this.max_level =1;
 			this.map = new Map(1);
 		}
 		Map.color_themes = color_themes;
@@ -72,6 +75,12 @@ public class Profile {
 
 
 	}
+
+	public void setLevel(int lvl){
+		this.map = new Map(lvl)  ;
+	}
+
+
 
 
 }

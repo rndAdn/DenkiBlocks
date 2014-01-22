@@ -1,7 +1,6 @@
 package gui;
 
 import moteur.map.Map;
-import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -10,14 +9,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayLevel extends BasicGameState {
 	public static final int ID = 5;
-	public static Profile joueur;
 	public Titre titre;
+	Map currentMap;
 	PlayLevel(){
 	}
 
-	public static void setLevel(int lvl){
-		joueur.map = new Map(lvl)  ;
-	}
+
 
 	@Override
 	public int getID() {
@@ -30,49 +27,51 @@ public class PlayLevel extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+
 		Fenetre.image_bg.draw(0, 0, container.getWidth(), container.getHeight());
-		titre.setName("Joueur :" + PlayLevel.joueur.name + " Niveau :" + PlayLevel.joueur.current_Level);
+		titre.setName("Joueur :" + Fenetre.profileActif.name + " Niveau :" + Fenetre.profileActif.max_level);
 		titre.render(g);
-		int xfirst = (container.getWidth()/2)-(joueur.map.getWidth()/2)*32;
-		int yfirst = (container.getHeight()/2)-(joueur.map.getHeight()/2)*32;
-		for(int i =0;i<joueur.map.getHeight(); i++){
-			for(int j =0;j<joueur.map.getWidth(); j++){
-				joueur.map.getCases()[i][j].getImage_Bg().draw(xfirst+j*32,i*32+yfirst);
+		int xfirst = (container.getWidth()/2)-(currentMap.getWidth()/2)*32;
+		int yfirst = (container.getHeight()/2)-(currentMap.getHeight()/2)*32;
+		for(int i =0;i<currentMap.getHeight(); i++){
+			for(int j =0;j<currentMap.getWidth(); j++){
+				currentMap.getCases()[i][j].getImage_Bg().draw(xfirst+j*32,i*32+yfirst);
 			}
 
 		}
-		for(int i =0;i<joueur.map.getHeight(); i++){
-			for(int j =0;j<joueur.map.getWidth(); j++){
-				if (joueur.map.getCases()[i][j].getImage_Fg() != null)joueur.map.getCases()[i][j].getImage_Fg().draw(xfirst+j*32,i*32+yfirst);
+		for(int i =0;i<currentMap.getHeight(); i++){
+			for(int j =0;j<currentMap.getWidth(); j++){
+				if (currentMap.getCases()[i][j].getImage_Fg() != null)currentMap.getCases()[i][j].getImage_Fg().draw(xfirst+j*32,i*32+yfirst);
 			}
 
 		}
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// pour cette exemple, on a rien à mettre à jour.
 		Input input = container.getInput();
 
+		currentMap = Fenetre.profileActif.map;
+		if (currentMap.checkAllFusionne()){
 
-		if (joueur.map.checkAllFusionne()){
-
-			joueur.current_Level++;
-			setLevel(joueur.current_Level);
+			Fenetre.profileActif.current_Level++;
+			Fenetre.profileActif.max_level = Fenetre.profileActif.current_Level>Fenetre.profileActif.max_level?Fenetre.profileActif.current_Level:Fenetre.profileActif.max_level;
+			System.out.println("profile curr "+Fenetre.profileActif.current_Level);
+			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level);
 			game.enterState(NiveauSuivant.ID);
 					
 		}
 
 		if (input.isKeyPressed(Keyboard.KEY_UP)) {
-			joueur.map.moveBlock("haut");
+			currentMap.moveBlock("haut");
 
 		}
 		if (input.isKeyPressed(Keyboard.KEY_DOWN)) {
-			joueur.map.moveBlock("bas");
+			currentMap.moveBlock("bas");
 		}
 		if (input.isKeyPressed(Keyboard.KEY_LEFT)) {
-			joueur.map.moveBlock("gauche");
+			currentMap.moveBlock("gauche");
 		}
 		if (input.isKeyPressed(Keyboard.KEY_RIGHT)) {
-			joueur.map.moveBlock("droite");
+			currentMap.moveBlock("droite");
 
 		}
 		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {

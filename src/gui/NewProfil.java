@@ -40,7 +40,7 @@ public class NewProfil extends BasicGameState {
 
 		if (play.isClicked()) {
 			//TODO : Tester Si le nom de profile existe déjà
-			PlayLevel.joueur = new Profile(textfield.getText());
+			Fenetre.profileActif= new Profile(textfield.getText());
 			game.enterState(MenuGame.ID);
 		}
 		else if (input.isKeyPressed(Keyboard.KEY_ESCAPE)) {

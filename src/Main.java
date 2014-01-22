@@ -14,15 +14,15 @@ public class Main {
 		String fonts[] =
 				GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
-		for ( int i = 0; i < fonts.length; i++ )
-		{
+		for ( int i = 0; i < fonts.length; i++ ){
 			System.out.println(fonts[i]);
 		}
 
 		try{
 			AppGameContainer container = new AppGameContainer(new Fenetre());
 			container.setDisplayMode(900, 1024*9/16, false);
-			container.setTargetFrameRate(60);
+			container.setVSync(true);
+			container.setTargetFrameRate(500);
 			container.start();
 		}
 		catch (SlickException e) {e.printStackTrace();}

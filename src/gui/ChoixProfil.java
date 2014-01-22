@@ -28,11 +28,10 @@ public class ChoixProfil extends BasicGameState {
 			throws SlickException {
 
 		titre = new Titre("Choix Profile",(container.getWidth()/2)-200/2,50);
-		ArrayList<String> name = folderToAListe();
-		profiles = new Button[name.size()];
-		profilesJoueurs = new Profile[name.size()];
+		loadAllProfile();
+		profiles = new Button[profilesJoueurs.length];
+
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
-			profilesJoueurs[i] = new Profile(name.get(i));
 			profiles[i] = new Button(profilesJoueurs[i].name,(container.getWidth()/2)-100/2,100+(i*(50+5)));
 			profiles[i].setWidthAndHeight(100, 50);
 		}
@@ -42,7 +41,7 @@ public class ChoixProfil extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
+		Fenetre.image_bg.draw(0, 0, container.getWidth(), container.getHeight());
 		titre.render(g);
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profiles[i].render(g);
@@ -57,8 +56,7 @@ public class ChoixProfil extends BasicGameState {
 		}
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			if (profiles[i].isClicked()) {
-				profilesJoueurs[i].map = new Map(profilesJoueurs[i].current_Level);
-				PlayLevel.joueur = profilesJoueurs[i];
+				Fenetre.profileActif = profilesJoueurs[i];
 				game.enterState(MenuGame.ID);
 			}
 
@@ -79,5 +77,14 @@ public class ChoixProfil extends BasicGameState {
 		}
 		Collections.sort(tmp);
 		return tmp;
-	}	
+	}
+
+	private void loadAllProfile(){
+		ArrayList<String> name = folderToAListe();
+		profilesJoueurs = new Profile[name.size()];
+		for (int i = 0 ; i<profilesJoueurs.length;i++){
+			profilesJoueurs[i] = new Profile(name.get(i));
+		}
+	}
+
 }

@@ -129,6 +129,7 @@ public class FileManager {
 			cur = Integer.parseInt(profile_List.get(1));
 		}catch (NumberFormatException ignored){}
 		profile.current_Level = cur;
+		profile.max_level = cur;
 		profile.map = new Map(cur);
 
 		return profile;

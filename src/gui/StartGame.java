@@ -39,7 +39,6 @@ public class StartGame extends BasicGameState {
 		}
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// pour cette exemple, on a rien à mettre à jour.
 		Input input = container.getInput();
 		for (Button aButton : button) {
 			aButton.update(container);

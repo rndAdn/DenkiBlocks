@@ -34,13 +34,13 @@ public class NiveauSuivant extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		titre.setName("BRAVO "+ PlayLevel.joueur.name+"!");
+		titre.setName("BRAVO "+ Fenetre.profileActif.name+"!");
 
 		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}
-		button[0].setName("Level n°" + PlayLevel.joueur.current_Level);
+		button[0].setName("Level n°" + Fenetre.profileActif.current_Level);
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
@@ -48,11 +48,11 @@ public class NiveauSuivant extends BasicGameState {
 			aButton.update(container);
 		}
 		if (button[0].isClicked()) {
-			PlayLevel.setLevel(PlayLevel.joueur.current_Level);
+			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level);
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {
-			PlayLevel.setLevel(PlayLevel.joueur.current_Level-1);
+			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level-1);
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[2].isClicked()) {
