@@ -1,8 +1,5 @@
 package moteur.map;
 
-/**
- * Created by renaud on 21/01/14.
- */
 public class Deplacement {
 
 	/**

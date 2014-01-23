@@ -1,6 +1,5 @@
 package gui;
 
-import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -33,13 +32,13 @@ public class MenuGame extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		titre.setName("Hello "+ Fenetre.profileActif.name+"!");
+		titre.setName("Hello "+ Fenetre.profilActif.name+"!");
 
 		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}
-		button[0].setName("Level n°" + Fenetre.profileActif.current_Level);
+		button[0].setName("Level n°" + Fenetre.profilActif.current_Level);
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
@@ -47,7 +46,7 @@ public class MenuGame extends BasicGameState {
 			aButton.update(container);
 		}
 		if (button[0].isClicked()) {
-			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level);
+			Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level);
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {

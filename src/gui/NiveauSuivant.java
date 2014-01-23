@@ -1,6 +1,5 @@
 package gui;
 
-import moteur.player.Profile;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -24,7 +23,7 @@ public class NiveauSuivant extends BasicGameState {
 		for (int i = 0;i<button.length;i++){
 			button[i] = new Button("",(container.getWidth()/2)-200/2,150+(i*(75+15)));
 		}
-
+		button[0].setName("Niveau Suivant");
 		button[1].setName("Recommencer");
 		button[2].setName("Choix Niveau");
 		button[3].setName("Menu");
@@ -34,13 +33,13 @@ public class NiveauSuivant extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		titre.setName("BRAVO "+ Fenetre.profileActif.name+"!");
+		titre.setName("BRAVO "+ Fenetre.profilActif.name+"!");
 
 		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}
-		button[0].setName("Level n°" + Fenetre.profileActif.current_Level);
+
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
@@ -48,11 +47,11 @@ public class NiveauSuivant extends BasicGameState {
 			aButton.update(container);
 		}
 		if (button[0].isClicked()) {
-			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level);
-			game.enterState(PlayLevel.ID);
+			if (!Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level))game.enterState(JeuxFini.ID);
+			else game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {
-			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level-1);
+			Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level-1);
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[2].isClicked()) {

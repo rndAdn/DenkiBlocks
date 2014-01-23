@@ -37,7 +37,6 @@ public abstract class Case {
 			case 2 :
 				this.image_bg = null;
 				this.image_bg = null;
-				Block.setNombre_blockspIncr();
 				break;
 		}
 	}

@@ -3,43 +3,49 @@ package moteur.player;
 import gui.Fenetre;
 import moteur.file.FileManager;
 import moteur.map.Map;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Profile {
+public class Profil {
 
+	// TODO : Ajouter les highScores des maps
+
+	public int nombre_de_niveau = 5;
 	public Map map;
 	public String name;
 	public int current_Level;
-	public int max_level;
+	public int niveaux_debloque;
 	public String[] color_themes = {"bleu","normal"};
 
-	public Profile(String name){
+	public Profil(String name){
 		this.name = name;
 		initialisation(name);
 
 	}
-	public Profile(){
+
+	public Profil(){
 		this.name = "";
 		map = new Map(1);
 		current_Level = 1;
-		max_level = 1;
+		niveaux_debloque = 1;
 
 	}
 
+
 	public void initialisation(String name){
 		File f = new File(Fenetre.PROFILE_FOLDER+name+".pfl");
+		// Si le fichier de profil existe on le charge
 		if(f.exists()) {
-			Profile profil = FileManager.loadProfile(f);
+			Profil profil = FileManager.loadProfile(f);
 			this.name = profil.name;
 			this.current_Level = profil.current_Level;
-			this.max_level = profil.current_Level;
+			this.niveaux_debloque = profil.current_Level;
 			this.map = profil.map;
 		}
 		else{
+			// On cree le fichier du nouveau profil
 			File destination = new File(Fenetre.PROFILE_FOLDER+name+".pfl");
 
 			BufferedWriter output = null;
@@ -65,7 +71,7 @@ public class Profile {
 			}
 			this.name = name;
 			this.current_Level =1;
-			this.max_level =1;
+			this.niveaux_debloque =1;
 			this.map = new Map(1);
 		}
 		Map.color_themes = color_themes;
@@ -76,8 +82,11 @@ public class Profile {
 
 	}
 
-	public void setLevel(int lvl){
-		this.map = new Map(lvl)  ;
+	public boolean setLevel(int lvl){
+		if (lvl > nombre_de_niveau) return false;
+		this.map = new Map(lvl);
+		return true;
+
 	}
 
 

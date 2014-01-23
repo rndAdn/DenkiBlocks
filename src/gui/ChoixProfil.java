@@ -1,7 +1,6 @@
 package gui;
 
-import moteur.map.Map;
-import moteur.player.Profile;
+import moteur.player.Profil;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -16,7 +15,7 @@ import java.util.Collections;
 public class ChoixProfil extends BasicGameState {
 	public static final int ID = 1;
 	Button[] profiles;
-	Profile[] profilesJoueurs;
+	Profil[] profilesJoueurs;
 	public Titre titre;
 
 	@Override
@@ -56,7 +55,7 @@ public class ChoixProfil extends BasicGameState {
 		}
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			if (profiles[i].isClicked()) {
-				Fenetre.profileActif = profilesJoueurs[i];
+				Fenetre.profilActif = profilesJoueurs[i];
 				game.enterState(MenuGame.ID);
 			}
 
@@ -81,9 +80,9 @@ public class ChoixProfil extends BasicGameState {
 
 	private void loadAllProfile(){
 		ArrayList<String> name = folderToAListe();
-		profilesJoueurs = new Profile[name.size()];
+		profilesJoueurs = new Profil[name.size()];
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
-			profilesJoueurs[i] = new Profile(name.get(i));
+			profilesJoueurs[i] = new Profil(name.get(i));
 		}
 	}
 

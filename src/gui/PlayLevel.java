@@ -29,7 +29,7 @@ public class PlayLevel extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
 		Fenetre.image_bg.draw(0, 0, container.getWidth(), container.getHeight());
-		titre.setName("Joueur :" + Fenetre.profileActif.name + " Niveau :" + Fenetre.profileActif.max_level);
+		titre.setName("Joueur :" + Fenetre.profilActif.name + " Niveau :" + Fenetre.profilActif.niveaux_debloque);
 		titre.render(g);
 		int xfirst = (container.getWidth()/2)-(currentMap.getWidth()/2)*32;
 		int yfirst = (container.getHeight()/2)-(currentMap.getHeight()/2)*32;
@@ -49,13 +49,13 @@ public class PlayLevel extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
 
-		currentMap = Fenetre.profileActif.map;
+		currentMap = Fenetre.profilActif.map;
 		if (currentMap.checkAllFusionne()){
 
-			Fenetre.profileActif.current_Level++;
-			Fenetre.profileActif.max_level = Fenetre.profileActif.current_Level>Fenetre.profileActif.max_level?Fenetre.profileActif.current_Level:Fenetre.profileActif.max_level;
-			System.out.println("profile curr "+Fenetre.profileActif.current_Level);
-			Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level);
+			Fenetre.profilActif.current_Level++;
+			Fenetre.profilActif.niveaux_debloque = Fenetre.profilActif.current_Level>Fenetre.profilActif.niveaux_debloque ?Fenetre.profilActif.current_Level:Fenetre.profilActif.niveaux_debloque;
+			System.out.println("profile curr "+Fenetre.profilActif.current_Level);
+
 			game.enterState(NiveauSuivant.ID);
 					
 		}

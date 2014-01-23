@@ -1,6 +1,5 @@
 package gui;
 
-import moteur.file.FileManager;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -47,7 +46,7 @@ public class ChoixNiveau extends BasicGameState {
 
 		titre.render(g);
 		for (int i = 0 ; i<allMapTab.length;i++){
-			if (i+1 > Fenetre.profileActif.max_level){
+			if (i+1 > Fenetre.profilActif.niveaux_debloque){
 				levelB[i].setBlockedImage();
 			}
 			levelB[i].render(g);
@@ -60,9 +59,9 @@ public class ChoixNiveau extends BasicGameState {
 			levelB[i].update(container);
 		}
 		for (int i = 0 ; i<allMapTab.length;i++){
-			if (levelB[i].isClicked() && (i+1)<= Fenetre.profileActif.max_level) {
-				Fenetre.profileActif.current_Level =i+1;
-				Fenetre.profileActif.setLevel(Fenetre.profileActif.current_Level);
+			if (levelB[i].isClicked() && (i+1)<= Fenetre.profilActif.niveaux_debloque) {
+				Fenetre.profilActif.current_Level =i+1;
+				Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level);
 				game.enterState(PlayLevel.ID);
 			}
 

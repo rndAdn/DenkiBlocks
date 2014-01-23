@@ -134,10 +134,10 @@ public class Map{
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.getCases()[i][j] instanceof Block){
 					int total=0;
-					total += getCases()[i][j].haut instanceof Block ?8:0;
-					total += getCases()[i][j].droite instanceof Block ?4:0;
-					total += getCases()[i][j].bas instanceof Block ?2:0;
-					total += getCases()[i][j].gauche instanceof Block ?1:0;
+					total += getCases()[i-1][j] instanceof Block ?8:0;
+					total += getCases()[i][j+1] instanceof Block ?4:0;
+					total += getCases()[i+1][j] instanceof Block ?2:0;
+					total += getCases()[i][j-1] instanceof Block ?1:0;
 					this.getCases()[i][j].setImage_Fg(blockImages[total]);
 				}
 

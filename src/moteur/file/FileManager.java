@@ -2,7 +2,7 @@ package moteur.file;
 
 import gui.Fenetre;
 import moteur.map.*;
-import moteur.player.Profile;
+import moteur.player.Profil;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -120,16 +120,16 @@ public class FileManager {
 	 * @param file Profile a charger
 	 * @return loaded_Profil
 	 */
-	public static Profile loadProfile(File file){
+	public static Profil loadProfile(File file){
 		ArrayList<String> profile_List = fileToArrayList(file);
-		Profile profile = new Profile();
+		Profil profile = new Profil();
 		profile.name = profile_List.get(0);
 		int cur = 1;
 		try{
 			cur = Integer.parseInt(profile_List.get(1));
 		}catch (NumberFormatException ignored){}
 		profile.current_Level = cur;
-		profile.max_level = cur;
+		profile.niveaux_debloque = cur;
 		profile.map = new Map(cur);
 
 		return profile;
@@ -198,75 +198,4 @@ public class FileManager {
 		return casesTab;
 
 	}
-
-	/*Test main open map*/
-
-	/*public static void main(String [] args){
-		String path = "data/level/1.lvl";
-		int lvl = 1;
-		Map map = new Map(path);
-
-		/*for(int i =0;i<map.getHeight(); i++){
-			for(int j =0;j<map.getWidth(); j++){
-				System.out.print(map.getCases()[i][j]+" ");
-			}
-			System.out.println();
-
-		}*/
-		/*Fenetre jFrame = new Fenetre();
-		jFrame.setVisible(true);
-		Pan p;
-		p = new Pan(map);
-		jFrame.add(p);
-		Scanner sc = new Scanner(System.in);
-		while (sc.nextInt() != 0){
-			//map.MoveDown();
-			p.repaint();
-		}
-
-
-	}
-
-	public static class Fenetre extends JFrame{
-
-		public Fenetre() {
-			initialisation();
-		}
-
-
-		private void initialisation(){
-			this.setTitle("TortueGenial");
-			setSize(32*21,32*21);
-
-
-			setVisible(true);
-
-		}
-	}
-
-	public static class Pan extends JPanel{
-		public Map map;
-
-		public Pan(Map map){this.map = map;}
-		/*@Override
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			Graphics2D g2 = (Graphics2D) g;
-			for(int i =0;i<map.getHeight(); i++){
-				for(int j =0;j<map.getWidth(); j++){
-					//g2.drawImage(map.getCases()[i][j].getImage_Bg(),j*32,i*32,32,32,null);
-				}
-
-			}
-			for(int i =0;i<map.getHeight(); i++){
-				for(int j =0;j<map.getWidth(); j++){
-					//if (map.getCases()[i][j].getImage_Fg() != null)g2.drawImage(map.getCases()[i][j].getImage_Fg(),j*32,i*32,32,32,null);
-				}
-
-			}
-
-
-		}
-
-	}  */
 }
