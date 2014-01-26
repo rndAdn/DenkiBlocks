@@ -1,0 +1,25 @@
+{
+    "folders":
+    [
+        {
+            "follow_symlinks": true,
+            "path": "src"
+        }
+    ],
+    "settings":
+    {
+        "SublimeLinter":
+        {
+            "Java":
+            {
+                "working_directory": "/media/data/git/DenkiBlocks",
+
+                "lint_args":
+                [
+                    "-sourcepath", "/media/data/git/DenkiBlocks",
+                    "{filename}"
+                ]
+            }
+        }
+    }
+}

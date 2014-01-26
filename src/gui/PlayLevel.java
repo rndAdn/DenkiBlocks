@@ -35,13 +35,13 @@ public class PlayLevel extends BasicGameState {
 		int yfirst = (container.getHeight()/2)-(currentMap.getHeight()/2)*32;
 		for(int i =0;i<currentMap.getHeight(); i++){
 			for(int j =0;j<currentMap.getWidth(); j++){
-				currentMap.getCases()[i][j].getImage_Bg().draw(xfirst+j*32,i*32+yfirst);
+				currentMap.getCases()[i][j].getImage_Bg().draw(xfirst+j*32,i*32+yfirst,32,32);
 			}
 
 		}
 		for(int i =0;i<currentMap.getHeight(); i++){
 			for(int j =0;j<currentMap.getWidth(); j++){
-				if (currentMap.getCases()[i][j].getImage_Fg() != null)currentMap.getCases()[i][j].getImage_Fg().draw(xfirst+j*32,i*32+yfirst);
+				if (currentMap.getCases()[i][j].getImage_Fg() != null)currentMap.getCases()[i][j].getImage_Fg().draw(xfirst+j*32,i*32+yfirst,32,32);
 			}
 
 		}
@@ -54,9 +54,9 @@ public class PlayLevel extends BasicGameState {
 
 			Fenetre.profilActif.current_Level++;
 			Fenetre.profilActif.niveaux_debloque = Fenetre.profilActif.current_Level>Fenetre.profilActif.niveaux_debloque ?Fenetre.profilActif.current_Level:Fenetre.profilActif.niveaux_debloque;
-			System.out.println("profile curr "+Fenetre.profilActif.current_Level);
+			if (Fenetre.profilActif.current_Level > Fenetre.profilActif.nombre_de_niveau) game.enterState(JeuxFini.ID);
 
-			game.enterState(NiveauSuivant.ID);
+			else game.enterState(NiveauSuivant.ID);
 					
 		}
 

@@ -15,7 +15,7 @@ public class Main {
 
 		try{
 			AppGameContainer container = new AppGameContainer(new Fenetre());
-			container.setDisplayMode(900, 1024*9/16, false);
+			container.setDisplayMode(1350, 1350*9/16, false);
 			container.setVSync(true);
 			container.setTargetFrameRate(500);
 			container.start();

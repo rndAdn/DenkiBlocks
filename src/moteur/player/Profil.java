@@ -46,6 +46,7 @@ public class Profil {
 		}
 		else{
 			// On cree le fichier du nouveau profil
+			//TODO : verfification nom correct
 			File destination = new File(Fenetre.PROFILE_FOLDER+name+".pfl");
 
 			BufferedWriter output = null;

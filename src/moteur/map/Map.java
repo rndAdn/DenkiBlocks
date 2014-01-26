@@ -23,6 +23,7 @@ public class Map{
 		this.width = 0;
 		this.height = 0;
 		this.name = "";
+
 	}
 
 	public Map(int level){

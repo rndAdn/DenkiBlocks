@@ -121,6 +121,8 @@ public class FileManager {
 	 * @return loaded_Profil
 	 */
 	public static Profil loadProfile(File file){
+
+		//TODO : Ajouter la lecture des highScore
 		ArrayList<String> profile_List = fileToArrayList(file);
 		Profil profile = new Profil();
 		profile.name = profile_List.get(0);
