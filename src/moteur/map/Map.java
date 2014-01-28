@@ -1,29 +1,36 @@
 package moteur.map;
 
+import gui.Fenetre;
 import moteur.file.FileManager;
+import org.newdawn.slick.Image;
 
 import java.util.ArrayList;
 
 public class Map{
-	public static final String LEVEL_FOLDER = "data/level/";
+
 	private Case[][] cases;
 	private int width;
 	private int height;
 	private String name;
 	private Block[] blocksTab = new Block[5];
+	static public String[] color_themes;
+	public static Image solImage;
+	public static Image [] blockImages;
+	public static Image [] oblstacleImages;
 
 	public Map(){
 		this.cases = null;
 		this.width = 0;
 		this.height = 0;
 		this.name = "";
+
 	}
 
 	public Map(int level){
-		initialisationMap(LEVEL_FOLDER+level+".lvl");
+		initialisationMap(Fenetre.LEVEL_FOLDER+level+".lvl");
 	}
 	public Map(String path){
-		initialisationMap(path);
+		initialisationMap(Fenetre.LEVEL_FOLDER+path+".lvl");
 	}
 
 	private void initialisationMap(String path){
@@ -43,19 +50,20 @@ public class Map{
 			}
 		}
 		blocksTab = liste.toArray(blocksTab);
-		System.out.println(blocksTab.length);
-		for(int i = 0; i<blocksTab.length;i++){
-			//System.out.println(blocksTab[i].getID());
-		}
 
 
 	}
 
+	/**
+	 * Charge les images de chaque case
+	 */
 	private void loadImages(){
+		if (solImage==null || blockImages == null|| oblstacleImages == null)return;
+
 		/*Chargement du sol*/
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
-				this.getCases()[i][j].setImage_Bg(FileManager.loadBgImg());
+				this.getCases()[i][j].setImage_Bg(solImage);
 			}
 
 		}
@@ -63,7 +71,7 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Block){
-					this.getCases()[i][j].setImage_Fg(FileManager.loadBlockImg(0, 0, 0, 0));
+					this.getCases()[i][j].setImage_Fg(blockImages[0]);
 				}
 
 			}
@@ -73,30 +81,50 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Obstacle){
-					this.getCases()[i][j].setImage_Fg(FileManager.loadObstacleImg(0, 0, 0, 0));
+					this.getCases()[i][j].setImage_Fg(oblstacleImages[0]);
 				}
 
 			}
 
 		}
 		checkFusionBlocks();
-		checkFusionObstacles();
+		majImageObstacles();
 	}
 
+	/**
+	 * Verifie si de nouveaux Blocks sont fusionnés
+	 * met à jour les images des Blocks fusionés
+	 */
 	private void checkFusionBlocks(){
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Block){
 					if (i < this.getHeight()-1 && this.cases[i+1][j] instanceof Block){
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i+1][j])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i+1][j]);
+							this.cases[i+1][j].listeBlock = this.cases[i][j].listeBlock;
+						}
 						this.cases[i][j].bas = this.cases[i+1][j];
 					}
 					if (i > 0 && this.cases[i-1][j] instanceof Block){
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i-1][j])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i-1][j]);
+							this.cases[i-1][j].listeBlock = this.cases[i][j].listeBlock;
+						}
 						this.cases[i][j].haut = this.cases[i-1][j];
 					}
 					if (j < this.getWidth()-1 && this.cases[i][j+1] instanceof Block){
-						this.cases[i][j].doite = this.cases[i][j+1];
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i][j+1])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i][j+1]);
+							this.cases[i][j+1].listeBlock = this.cases[i][j].listeBlock;
+						}
+						this.cases[i][j].droite = this.cases[i][j+1];
 					}
 					if (j >0 && this.cases[i][j-1] instanceof Block){
+						if (!this.cases[i][j].listeBlock.contains(this.cases[i][j-1])){
+							this.cases[i][j].listeBlock.add((Block)this.cases[i][j-1]);
+							this.cases[i][j-1].listeBlock = this.cases[i][j].listeBlock;
+						}
 						this.cases[i][j].gauche = this.cases[i][j-1];
 					}
 
@@ -106,11 +134,12 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.getCases()[i][j] instanceof Block){
-					int h = getCases()[i][j].haut instanceof Block ?1:0;
-					int d = getCases()[i][j].doite instanceof Block ?1:0;
-					int b = getCases()[i][j].bas instanceof Block ?1:0;
-					int g = getCases()[i][j].gauche instanceof Block ?1:0;
-					this.getCases()[i][j].setImage_Fg(FileManager.loadBlockImg(h, d, b, g));
+					int total=0;
+					total += getCases()[i-1][j] instanceof Block ?8:0;
+					total += getCases()[i][j+1] instanceof Block ?4:0;
+					total += getCases()[i+1][j] instanceof Block ?2:0;
+					total += getCases()[i][j-1] instanceof Block ?1:0;
+					this.getCases()[i][j].setImage_Fg(blockImages[total]);
 				}
 
 			}
@@ -119,8 +148,10 @@ public class Map{
 		}
 	}
 
-
-	private void checkFusionObstacles(){
+	/**
+	 * Cette fonction met à jour les images des obstacles au chargepent du niveau
+	 */
+	private void majImageObstacles(){
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Obstacle){
@@ -131,7 +162,7 @@ public class Map{
 						this.cases[i][j].haut = this.cases[i-1][j];
 					}
 					if (j < this.getWidth()-1 && this.cases[i][j+1] instanceof Obstacle){
-						this.cases[i][j].doite = this.cases[i][j+1];
+						this.cases[i][j].droite = this.cases[i][j+1];
 					}
 					if (j >0 && this.cases[i][j-1] instanceof Obstacle){
 						this.cases[i][j].gauche = this.cases[i][j-1];
@@ -143,11 +174,12 @@ public class Map{
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.getCases()[i][j] instanceof Obstacle){
-					int h = getCases()[i][j].haut instanceof Obstacle ?1:0;
-					int d = getCases()[i][j].doite instanceof Obstacle ?1:0;
-					int b = getCases()[i][j].bas instanceof Obstacle ?1:0;
-					int g = getCases()[i][j].gauche instanceof Obstacle ?1:0;
-					this.getCases()[i][j].setImage_Fg(FileManager.loadObstacleImg(h, d, b, g));
+					int total=0;
+					total += getCases()[i][j].haut instanceof Obstacle ?8:0;
+					total += getCases()[i][j].droite instanceof Obstacle ?4:0;
+					total += getCases()[i][j].bas instanceof Obstacle ?2:0;
+					total += getCases()[i][j].gauche instanceof Obstacle ?1:0;
+					this.getCases()[i][j].setImage_Fg(oblstacleImages[total]);
 				}
 
 			}
@@ -158,9 +190,10 @@ public class Map{
 
 	/**
 	 * Cette fonction verifie si tout les blocks on fusionnés
-	 * @return
+	 * @return true
 	 */
 	public boolean checkAllFusionne(){
+<<<<<<< HEAD
 
 		return true;
 	}
@@ -235,24 +268,47 @@ public class Map{
 				if (this.cases[i][j] instanceof Block && !( this.cases[i][j+1] instanceof Obstacle)){
 					this.cases[i][j+1] = this.cases[i][j];
 					this.cases[i][j] = new Vide();
+=======
+		Block tmp = null;
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				if (this.cases[i][j] instanceof Block && tmp == null){
+					tmp = (Block)this.cases[i][j];
+					continue;
+>>>>>>> gui
 				}
+				else if (this.cases[i][j] instanceof Block && !tmp.listeBlock.contains(this.cases[i][j])) return false;
 			}
 		}
-		checkFusionBlocks();
 		return true;
 	}
-	public boolean moveLeft(){
-		for(int i =this.getHeight()-1;i>0; i--){
-			for(int j = 0;j<this.getWidth()-1; j++){
-				if (this.cases[i][j] instanceof Block && !( this.cases[i][j-1] instanceof Obstacle)){
-					this.cases[i][j-1] = this.cases[i][j];
-					this.cases[i][j] = new Vide();
-				}
-			}
+
+
+
+	/**
+	 * Cette fonction deplace les Block sur la map dans une direction
+	 * @param direction direction de deplacement des blocks (droite, gauche, haut, bas)
+	 */
+	public void moveBlock(String direction){
+		switch (direction){
+			case "droite" :
+				Deplacement.moveRight(this, this.getWidth(), this.getHeight());
+				break;
+			case "gauche" :
+				Deplacement.moveLeft(this, this.getWidth(), this.getHeight());
+				break;
+			case "haut" :
+				Deplacement.moveUp(this, this.getWidth(), this.getHeight());
+				break;
+			case "bas" :
+				Deplacement.moveDown(this, this.getWidth(), this.getHeight());
+				break;
+
 		}
 		checkFusionBlocks();
-		return true;
 	}
+
+
 	/*GET*/
 
 	public Case[][] getCases() {

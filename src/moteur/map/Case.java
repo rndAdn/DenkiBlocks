@@ -3,21 +3,26 @@ package moteur.map;
 
 import org.newdawn.slick.Image;
 
+import java.util.ArrayList;
+
 public abstract class Case {
 
 	private Image image_bg;
 	private Image image_fg;
-	protected Case doite;
+	protected ArrayList<Block> listeBlock;
+	protected Case droite;
 	protected Case haut;
 	protected Case bas;
 	protected Case gauche;
+<<<<<<< HEAD
 	public boolean movable = true;
+=======
+	public boolean canBeMove = false;
+>>>>>>> gui
 
 
 	public Case(int type){
-		// type : 0 case Vide
-		// type : 1 case Obstacle
-		// type : 2 case Vide & Block
+		listeBlock = new ArrayList<>();
 		initialisationCase(type);
 
 	}
@@ -36,7 +41,6 @@ public abstract class Case {
 			case 2 :
 				this.image_bg = null;
 				this.image_bg = null;
-				Block.setNombre_blockspIncr();
 				break;
 		}
 	}

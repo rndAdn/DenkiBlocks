@@ -1,36 +1,34 @@
 package gui;
 
+import moteur.player.Profil;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Fenetre extends StateBasedGame{
-	private GameState jeu; // le premier état du jeu (voir GameState.java)
-	private AppGameContainer container; // le conteneur du jeu
-
+	private GameState[] jeu = {new StartGame(),new ChoixProfil(),new NewProfil(),new MenuGame(),new ChoixNiveau(), new PlayLevel(),new HighScore(),new Pause(),new NiveauSuivant(),new JeuxFini()}; // le premier état du jeu (voir GameState.java)
+	public static final String IMAGE_FOLDER = "data/images/";
+	public static final String PROFILE_FOLDER = "data/profile/";
+	public static final String LEVEL_FOLDER = "data/level/";
+	public static final String MENU_FOLDER = "data/images/menu/";
+	public static  Image image_bg;
+	public static Profil profilActif;
 	public Fenetre() {
-		super("Mon premier jeu");
-	} // le constructeur de la classe
+		super("Denki Block");
+	}
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException{
 
 		if (container instanceof AppGameContainer) {
-			this.container = (AppGameContainer) container; // on stocke le conteneur du jeu ! }
-
-			jeu = new Game(1); //le jeu en lui-même !
-			addState(jeu);
-			container.setShowFPS(true); //on ne veut pas voir le FPS ?? mettre alors "false" ! addState(jeu); //on ajoute le GameState au conteneur !
+			image_bg = new Image("data/images/background.jpg");
+			for (int i = 0; i< jeu.length;i++){
+				addState(jeu[i]);
+			}
+			enterState(0);
+			container.setShowFPS(true);
 		}
 	}
 
-	public static void main(String[] args){
-		try{
-			AppGameContainer container = new AppGameContainer(new Fenetre());
-			container.setDisplayMode(1024, 1024*9/16, false); // fenêtre de 1280*768 fullscreen =false !!*
-			container.setTargetFrameRate(60); // on règle le FrameRate
-			container.start(); //on démarre le container
-		}
-		catch (SlickException e) {e.printStackTrace();} // l'exception de base de slick !!
-	}
-} // fin de classe
+
+}

@@ -1,20 +1,16 @@
 package moteur.file;
 
+import gui.Fenetre;
 import moteur.map.*;
-import moteur.player.Profile;
+import moteur.player.Profil;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class FileManager {
-	private static final String BG_IMAGE_PATH = "data/images/";
 
 	/**
 	 * Cette fonction charge le fichier dans une ArrayList :
@@ -44,20 +40,40 @@ public class FileManager {
 		return list;
 	}
 
-
 	/**
-	 * Cette fonction charge un profile à partir de son chemin (dossier profiles : "data/profile/"):
-	 * @param name Profile a charger
-	 * @return loaded_Profil
+	 * Cette fonction charge le fichier dans une ArrayList :
+	 * @param file Fichier a charger
+	 * @return ArrayList_File
 	 */
-	public static Profile loadProfile(String name){
-		 return null;
+	private static ArrayList<String> fileToArrayList(File file){
+		BufferedReader reader;
+		ArrayList<String> list  = new ArrayList<>();
+		String ligne;
+		try {
+			reader = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e) {
+			System.err.println("error fichier 'FileManager -> fileToArrayList' initialisation reader");
+			return null;
+		}
+		do{
+			try {
+				ligne = reader.readLine();
+			} catch (IOException e) {
+				System.err.println("error fichier 'FileManager -> fileToArrayList' readline");
+				return null;
+			}
+			if (ligne != null && !(ligne.startsWith("#") ||ligne.equalsIgnoreCase("")))list.add(ligne.trim());
+		} while(ligne != null);
+		return list;
 	}
 
-	public static Image loadBgImg() {
+
+
+
+	public static Image loadSolImg(String theme_decor) {
 		Image img = null;
 		try {
-				img = new Image(BG_IMAGE_PATH + "sol2.png");
+				img = new Image(Fenetre.IMAGE_FOLDER+ "decors/" +theme_decor+ "/sol.png");
 			}catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -65,24 +81,62 @@ public class FileManager {
 	}
 
 
-	public static Image loadBlockImg(int h,int d,int b, int g) {
-		Image img = null;
-		try {
-			img = new Image(BG_IMAGE_PATH + "/blocks/blue/" + h + "" + d + "" + b + "" + g + ".png");
-		}catch (SlickException e) {
-			e.printStackTrace();
+
+	public static Image[] loadBlockImgT(String theme_block) {
+		Image[] img = new Image[16];
+
+		for (int i = 0;i<16;i++){
+			String name = Integer.toBinaryString(i);
+			while (name.length()<4)name = "0"+name;
+			try {
+				img[i] = new Image(Fenetre.IMAGE_FOLDER + "blocks/"+theme_block+"/"+name+".png");
+			}catch (SlickException e) {
+				e.printStackTrace();
+			}
 		}
 		return img ;
 	}
-	public static Image loadObstacleImg(int h,int d,int b, int g) {
-		Image img = null;
-		try {
-			img = new Image(BG_IMAGE_PATH + "/obstacle/" + h + "" + d + "" + b + "" + g + ".png");
-		}catch (SlickException e) {
-			e.printStackTrace();
+
+	public static Image[] loadObstacleImgT(String theme_decor) {
+		Image[] img = new Image[16];
+
+		for (int i = 0;i<16;i++){
+			String name = Integer.toBinaryString(i);
+			while (name.length()<4)name = "0"+name;
+			try {
+				img[i] = new Image(Fenetre.IMAGE_FOLDER + "decors/"+theme_decor+ "/obstacle/"+name+".png");
+			}catch (SlickException e) {
+				e.printStackTrace();
+			}
 		}
 		return img ;
 	}
+
+
+
+
+	/**
+	 * Cette fonction charge un profile à partir de son nom (dossier profiles : "data/profile/"):
+	 * @param file Profile a charger
+	 * @return loaded_Profil
+	 */
+	public static Profil loadProfile(File file){
+
+		//TODO : Ajouter la lecture des highScore
+		ArrayList<String> profile_List = fileToArrayList(file);
+		Profil profile = new Profil();
+		profile.name = profile_List.get(0);
+		int cur = 1;
+		try{
+			cur = Integer.parseInt(profile_List.get(1));
+		}catch (NumberFormatException ignored){}
+		profile.current_Level = cur;
+		profile.niveaux_debloque = cur;
+		profile.map = new Map(cur);
+
+		return profile;
+	}
+
 
 	/**
 	 * Cette fonction charge un niveau à partir de son chemin :
@@ -144,77 +198,6 @@ public class FileManager {
 		}
 
 		return casesTab;
-
-	}
-
-	/*Test main open map*/
-
-	public static void main(String [] args){
-		String path = "data/level/1.lvl";
-		int lvl = 1;
-		Map map = new Map(path);
-
-		/*for(int i =0;i<map.getHeight(); i++){
-			for(int j =0;j<map.getWidth(); j++){
-				System.out.print(map.getCases()[i][j]+" ");
-			}
-			System.out.println();
-
-		}*/
-		Fenetre jFrame = new Fenetre();
-		jFrame.setVisible(true);
-		Pan p;
-		p = new Pan(map);
-		jFrame.add(p);
-		Scanner sc = new Scanner(System.in);
-		while (sc.nextInt() != 0){
-			//map.MoveDown();
-			p.repaint();
-		}
-
-
-	}
-
-	public static class Fenetre extends JFrame{
-
-		public Fenetre() {
-			initialisation();
-		}
-
-
-		private void initialisation(){
-			this.setTitle("TortueGenial");
-			setSize(32*21,32*21);
-
-
-			setVisible(true);
-
-		}
-	}
-
-	public static class Pan extends JPanel{
-		public Map map;
-
-		public Pan(Map map){this.map = map;}
-		@Override
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			Graphics2D g2 = (Graphics2D) g;
-			for(int i =0;i<map.getHeight(); i++){
-				for(int j =0;j<map.getWidth(); j++){
-					//g2.drawImage(map.getCases()[i][j].getImage_Bg(),j*32,i*32,32,32,null);
-				}
-
-			}
-			for(int i =0;i<map.getHeight(); i++){
-				for(int j =0;j<map.getWidth(); j++){
-					//if (map.getCases()[i][j].getImage_Fg() != null)g2.drawImage(map.getCases()[i][j].getImage_Fg(),j*32,i*32,32,32,null);
-				}
-
-			}
-
-
-		}
 
 	}
 }
