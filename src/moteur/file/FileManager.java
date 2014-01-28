@@ -133,7 +133,7 @@ public class FileManager {
 		profile.current_Level = cur;
 		profile.niveaux_debloque = cur;
 		String [] highscoreStr=profile_List.get(2).split(",");
-		int [] highscoreInt = new int[highscoreStr.length];
+		int [] highscoreInt = new int[profile.nombre_de_niveau];
 		for (int i = 0; i<highscoreStr.length;i++){
 			highscoreInt[i] = Integer.parseInt(highscoreStr[i]);
 		}

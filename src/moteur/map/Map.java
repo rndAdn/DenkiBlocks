@@ -17,6 +17,7 @@ public class Map{
 	public Image solImage;
 	public Image [] blockImages;
 	public Image [] oblstacleImages;
+	public int nombre_Mouvement = 0;
 
 	public Map(){
 		this.cases = null;
@@ -220,6 +221,7 @@ public class Map{
 	 * @param direction direction de deplacement des blocks (droite, gauche, haut, bas)
 	 */
 	public void moveBlock(String direction){
+		nombre_Mouvement++;
 		switch (direction){
 			case "droite" :
 				Deplacement.moveRight(this, this.getWidth(), this.getHeight());

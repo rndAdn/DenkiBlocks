@@ -1,5 +1,6 @@
 package gui;
 
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -39,6 +40,10 @@ public class NiveauSuivant extends BasicGameState {
 		for (Button aButton : button) {
 			aButton.render(g);
 		}
+		for (int e : Fenetre.profilActif.highScore){
+			System.out.print(e+" ");
+		}
+		System.out.println();
 
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
@@ -51,7 +56,7 @@ public class NiveauSuivant extends BasicGameState {
 			else game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {
-			Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level-1);
+			Fenetre.profilActif.setLevel(--Fenetre.profilActif.current_Level);
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[2].isClicked()) {

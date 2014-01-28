@@ -18,7 +18,7 @@ public class Profil {
 	public int current_Level;
 	public int niveaux_debloque;
 	public String[] color_themes = {"red","normal"};
-	public int [] highScore;
+	public int [] highScore = new int[nombre_de_niveau];
 
 	public Profil(String name){
 		this.name = name;

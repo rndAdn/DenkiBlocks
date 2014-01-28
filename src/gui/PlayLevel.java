@@ -51,7 +51,9 @@ public class PlayLevel extends BasicGameState {
 
 		currentMap = Fenetre.profilActif.map;
 		if (currentMap.checkAllFusionne()){
-
+			if(Fenetre.profilActif.highScore[Fenetre.profilActif.current_Level-1] == 0 || Fenetre.profilActif.highScore[Fenetre.profilActif.current_Level-1] > currentMap.nombre_Mouvement){
+				Fenetre.profilActif.highScore[Fenetre.profilActif.current_Level-1] = currentMap.nombre_Mouvement;
+			}
 			Fenetre.profilActif.current_Level++;
 			Fenetre.profilActif.niveaux_debloque = Fenetre.profilActif.current_Level>Fenetre.profilActif.niveaux_debloque ?Fenetre.profilActif.current_Level:Fenetre.profilActif.niveaux_debloque;
 			if (Fenetre.profilActif.current_Level > Fenetre.profilActif.nombre_de_niveau) game.enterState(JeuxFini.ID);
