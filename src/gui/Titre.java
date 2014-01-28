@@ -12,8 +12,8 @@ public class Titre extends Entity {
 	private Rectangle button;
 
 	private String text;
-	java.awt.Font font = new java.awt.Font("URW Bookman L", java.awt.Font.BOLD, 25);
-	TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
+	private java.awt.Font font = new java.awt.Font("URW Bookman L", java.awt.Font.BOLD, 25);
+	private TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
 
 	private float width = 200;
 	private float height = 50;

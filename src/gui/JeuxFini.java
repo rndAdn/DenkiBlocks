@@ -9,8 +9,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class JeuxFini extends BasicGameState {
 	public static final int ID = 9;
 
-	public Titre titre;
-	public Button button;
+	private Titre titre;
+	private Button button;
 
 	@Override
 	public int getID() {
@@ -25,7 +25,7 @@ public class JeuxFini extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		titre.setName("BRAVO "+Fenetre.profilActif.name+" Vous avez fini");
+		titre.setName("BRAVO "+Fenetre.profilActif.getName()+" Vous avez fini");
 		titre.render(g);
 		button.render(g);
 	}

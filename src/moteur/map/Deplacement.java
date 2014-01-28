@@ -12,11 +12,11 @@ public class Deplacement {
 				if (map.getCases()[i][j] instanceof Block){
 					boolean allBlocksCanmove = true;
 					for (Block b : map.getCases()[i][j].listeBlock){
-						if (!b.canBeMove) allBlocksCanmove = false;
+						if (!b.isCanBeMove()) allBlocksCanmove = false;
 					}
 					if (!allBlocksCanmove){//si un block ne peux pas bouger alors tout les block fusionnés ne pourront pas non plus
 						for (Block b : map.getCases()[i][j].listeBlock){
-							b.canBeMove = false;
+							b.setCanBeMove(false);
 						}
 					}
 				}
@@ -31,7 +31,7 @@ public class Deplacement {
 	private static void checkMoveDown(Map map,int x,int y){
 		for(int i =y-1;i>=0; i--){
 			for(int j =0;j<x; j++){
-				map.getCases()[i][j].canBeMove = !(map.getCases()[i][j] instanceof Block && map.getCases()[i + 1][j] instanceof Obstacle);
+				map.getCases()[i][j].setCanBeMove(!(map.getCases()[i][j] instanceof Block && map.getCases()[i + 1][j] instanceof Obstacle));
 			}
 		}
 		checkCanMove(map,x,y);
@@ -44,7 +44,7 @@ public class Deplacement {
 		checkMoveDown(map,x,y);
 		for(int i =y-1;i>=0; i--){
 			for(int j =0;j<x; j++){
-				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
+				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].isCanBeMove()){
 					map.getCases()[i+1][j] = map.getCases()[i][j];
 					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);
 				}
@@ -58,7 +58,7 @@ public class Deplacement {
 	private static void checkMoveUp(Map map,int x,int y){
 		for(int i =1;i<y; i++){
 			for(int j =0;j<x; j++){
-				map.getCases()[i][j].canBeMove = !(map.getCases()[i][j] instanceof Block && map.getCases()[i - 1][j] instanceof Obstacle);
+				map.getCases()[i][j].setCanBeMove(!(map.getCases()[i][j] instanceof Block && map.getCases()[i - 1][j] instanceof Obstacle));
 			}
 		}
 		checkCanMove(map,x,y);
@@ -71,7 +71,7 @@ public class Deplacement {
 		checkMoveUp(map,x,y);
 		for(int i =1;i<y; i++){
 			for(int j =0;j<x; j++){
-				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
+				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].isCanBeMove()){
 					map.getCases()[i-1][j] = map.getCases()[i][j];
 					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);
 				}
@@ -85,7 +85,7 @@ public class Deplacement {
 	private static void checkMoveRight(Map map,int x,int y){
 		for(int i =0;i<y; i++){
 			for(int j =x-1;j>0; j--){
-				map.getCases()[i][j].canBeMove = !(map.getCases()[i][j] instanceof Block && map.getCases()[i][j + 1] instanceof Obstacle);
+				map.getCases()[i][j].setCanBeMove(!(map.getCases()[i][j] instanceof Block && map.getCases()[i][j + 1] instanceof Obstacle));
 			}
 		}
 		checkCanMove(map,x,y);
@@ -98,7 +98,7 @@ public class Deplacement {
 		checkMoveRight(map,x,y);
 		for(int i =1;i<y; i++){
 			for(int j =x-1;j>0; j--){
-				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
+				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].isCanBeMove()){
 					map.getCases()[i][j+1] = map.getCases()[i][j];
 					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);
 				}
@@ -112,7 +112,7 @@ public class Deplacement {
 	private static void checkMoveLeft(Map map,int x,int y){
 		for(int i =0;i<y; i++){
 			for(int j =1;j<x; j++){
-				map.getCases()[i][j].canBeMove = !(map.getCases()[i][j] instanceof Block && map.getCases()[i][j - 1] instanceof Obstacle);
+				map.getCases()[i][j].setCanBeMove(!(map.getCases()[i][j] instanceof Block && map.getCases()[i][j - 1] instanceof Obstacle));
 			}
 		}
 		checkCanMove(map,x,y);
@@ -125,7 +125,7 @@ public class Deplacement {
 		checkMoveLeft(map,x,y);
 		for(int i =y-1;i>0; i--){
 			for(int j = 0;j<x-1; j++){
-				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
+				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].isCanBeMove()){
 					map.getCases()[i][j-1] = map.getCases()[i][j];
 					System.out.println(/*map.color_themes*/);
 					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);

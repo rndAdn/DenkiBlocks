@@ -22,8 +22,8 @@ public class Button extends Entity {
 
 
 	private String text;
-	Font font = new Font("Bitstream Vera Sans", Font.BOLD, 20);
-	TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
+	private Font font = new Font("Bitstream Vera Sans", Font.BOLD, 20);
+	private TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
 
 	private float width = 250;
 	private float height = 75;
@@ -75,7 +75,7 @@ public class Button extends Entity {
 	public void render (Graphics gr){
 		renderImage.draw(position.x, position.y, width, height);
 
-		int marginw = ((int) width - getTextWidth(text, font)) / 2;
+		int marginw = ((int) width - getTextWidth(text)) / 2;
 		int marginh = ((int) height - trueTypeFont.getHeight()) / 2;
 
 		gr.setFont(trueTypeFont);
@@ -100,7 +100,7 @@ public class Button extends Entity {
 		return false;
 	}
 
-	private int getTextWidth (String text, Font font)
+	private int getTextWidth (String text)
 	{
 		int width = 0;
 

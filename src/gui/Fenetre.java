@@ -13,6 +13,7 @@ public class Fenetre extends StateBasedGame{
 	public static final String MENU_FOLDER = "data/images/menu/";
 	public static  Image image_bg;
 	public static Profil profilActif;
+
 	public Fenetre() {
 		super("Denki Block");
 	}

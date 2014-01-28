@@ -15,9 +15,9 @@ import java.util.Collections;
 
 public class ChoixProfil extends BasicGameState {
 	public static final int ID = 1;
-	Button[] profiles;
-	Profil[] profilesJoueurs;
-	public Titre titre;
+	private Button[] profiles;
+	private Profil[] profilesJoueurs;
+	private  Titre titre;
 
 	@Override
 	public int getID() {
@@ -32,10 +32,10 @@ public class ChoixProfil extends BasicGameState {
 		profiles = new Button[profilesJoueurs.length];
 
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
-			profiles[i] = new Button(profilesJoueurs[i].name,(container.getWidth()/2)-100/2,100+(i*(50+5)));
+			profiles[i] = new Button(profilesJoueurs[i].getName(),(container.getWidth()/2)-100/2,100+(i*(50+5)));
 			profiles[i].setWidthAndHeight(100, 50);
-			for (int j = 0 ; j<profilesJoueurs[i].highScore.length;j++){
-				System.out.print(profilesJoueurs[i].highScore[j]+" ");
+			for (int j = 0 ; j<profilesJoueurs[i].getHighScore().length;j++){
+				System.out.print(profilesJoueurs[i].getHighScore()[j]+" ");
 			}
 			System.out.println();
 		}
@@ -92,7 +92,7 @@ public class ChoixProfil extends BasicGameState {
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profilesJoueurs[i] = new Profil(name.get(i));
 		}
-		HighScore.ALLPROFILE = profilesJoueurs;
+		HighScore.setALLPROFILE(profilesJoueurs);
 	}
 
 }

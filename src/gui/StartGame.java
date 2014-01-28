@@ -9,8 +9,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class StartGame extends BasicGameState {
 	public static final int ID = 0;
 
-	public Button button[] = new Button[3];
-	public Titre titre;
+	private Button button[] = new Button[3];
+	private Titre titre;
 
 	@Override
 	public int getID() {

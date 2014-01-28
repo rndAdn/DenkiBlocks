@@ -1,6 +1,5 @@
 package gui;
 
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -10,9 +9,10 @@ import org.newdawn.slick.state.StateBasedGame;
 public class NiveauSuivant extends BasicGameState {
 	public static final int ID = 8;
 
-	public Titre titre;
+	private Titre titre;
+	private Button button[] = new Button[4];
 
-	public Button button[] = new Button[4];
+
 	@Override
 	public int getID() {
 		return ID;
@@ -34,13 +34,13 @@ public class NiveauSuivant extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		titre.setName("BRAVO "+ Fenetre.profilActif.name+"!");
+		titre.setName("BRAVO "+ Fenetre.profilActif.getName()+"!");
 
 		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}
-		for (int e : Fenetre.profilActif.highScore){
+		for (int e : Fenetre.profilActif.getHighScore()){
 			System.out.print(e+" ");
 		}
 		System.out.println();
@@ -52,11 +52,11 @@ public class NiveauSuivant extends BasicGameState {
 			aButton.update(container);
 		}
 		if (button[0].isClicked()) {
-			if (!Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level))game.enterState(JeuxFini.ID);
+			if (!Fenetre.profilActif.setLevel(Fenetre.profilActif.getCurrent_Level()))game.enterState(JeuxFini.ID);
 			else game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {
-			Fenetre.profilActif.setLevel(--Fenetre.profilActif.current_Level);
+			Fenetre.profilActif.setLevel(Fenetre.profilActif.getCurrent_Level()-1);
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[2].isClicked()) {

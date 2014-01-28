@@ -9,9 +9,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MenuGame extends BasicGameState {
 	public static final int ID = 3;
 
-	public Titre titre;
+	private Titre titre;
 
-	public Button button[] = new Button[4];
+	private Button button[] = new Button[4];
 	@Override
 	public int getID() {
 		return ID;
@@ -32,13 +32,13 @@ public class MenuGame extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
-		titre.setName("Hello "+ Fenetre.profilActif.name+"!");
+		titre.setName("Hello "+ Fenetre.profilActif.getName()+"!");
 
 		titre.render(g);
 		for (Button aButton : button) {
 			aButton.render(g);
 		}
-		button[0].setName("Level n°" + Fenetre.profilActif.current_Level);
+		button[0].setName("Level n°" + Fenetre.profilActif.getCurrent_Level());
 	}
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
@@ -46,7 +46,7 @@ public class MenuGame extends BasicGameState {
 			aButton.update(container);
 		}
 		if (button[0].isClicked()) {
-			Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level);
+			Fenetre.profilActif.setLevel(Fenetre.profilActif.getCurrent_Level());
 			game.enterState(PlayLevel.ID);
 		}
 		else if(button[1].isClicked()) {

@@ -10,7 +10,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class PlayLevel extends BasicGameState {
 	public static final int ID = 5;
 	public Titre titre;
-	Map currentMap;
+	private Map currentMap;
+
 	PlayLevel(){}
 
 
@@ -28,7 +29,7 @@ public class PlayLevel extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
 		Fenetre.image_bg.draw(0, 0, container.getWidth(), container.getHeight());
-		titre.setName("Joueur :" + Fenetre.profilActif.name + " Niveau :" + Fenetre.profilActif.niveaux_debloque);
+		titre.setName("Joueur :" + Fenetre.profilActif.getName() + " Niveau :" + Fenetre.profilActif.getNiveaux_debloque());
 		titre.render(g);
 		int xfirst = (container.getWidth()/2)-(currentMap.getWidth()/2)*32;
 		int yfirst = (container.getHeight()/2)-(currentMap.getHeight()/2)*32;
@@ -48,15 +49,16 @@ public class PlayLevel extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input = container.getInput();
 
-		currentMap = Fenetre.profilActif.map;
+		currentMap = Fenetre.profilActif.getMap();
 		if (currentMap.checkAllFusionne()){
-			if(Fenetre.profilActif.highScore[Fenetre.profilActif.current_Level-1] == 0 || Fenetre.profilActif.highScore[Fenetre.profilActif.current_Level-1] > currentMap.nombre_Mouvement){
-				Fenetre.profilActif.highScore[Fenetre.profilActif.current_Level-1] = currentMap.nombre_Mouvement;
+			if(Fenetre.profilActif.getHighScore()[Fenetre.profilActif.getCurrent_Level()-1] == 0 || Fenetre.profilActif.getHighScore()[Fenetre.profilActif.getCurrent_Level()-1] > currentMap.getNombre_Mouvement()){
+
+				Fenetre.profilActif.setHighscoreI(Fenetre.profilActif.getCurrent_Level(),currentMap.getNombre_Mouvement());
 				Fenetre.profilActif.saveHighScore();
 			}
-			Fenetre.profilActif.current_Level++;
-			Fenetre.profilActif.niveaux_debloque = Fenetre.profilActif.current_Level>Fenetre.profilActif.niveaux_debloque ?Fenetre.profilActif.current_Level:Fenetre.profilActif.niveaux_debloque;
-			if (Fenetre.profilActif.current_Level > Fenetre.profilActif.nombre_de_niveau) game.enterState(JeuxFini.ID);
+			Fenetre.profilActif.setCurrent_Level(Fenetre.profilActif.getCurrent_Level()+1);
+			Fenetre.profilActif.setNiveaux_debloque(Fenetre.profilActif.getCurrent_Level()>Fenetre.profilActif.getNiveaux_debloque() ?Fenetre.profilActif.getCurrent_Level():Fenetre.profilActif.getNiveaux_debloque());
+			if (Fenetre.profilActif.getCurrent_Level() > Fenetre.profilActif.getNombre_de_niveau()) game.enterState(JeuxFini.ID);
 
 			else game.enterState(NiveauSuivant.ID);
 					

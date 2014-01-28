@@ -12,13 +12,13 @@ public class Profil {
 
 	// TODO : Ajouter les highScores des maps
 
-	public int nombre_de_niveau = 5;
-	public Map map;
-	public String name;
-	public int current_Level;
-	public int niveaux_debloque;
-	public String[] color_themes = {"red","normal"};
-	public int [] highScore = new int[nombre_de_niveau];
+	private int nombre_de_niveau = 5;
+	private Map map;
+	private String name;
+	private int current_Level;
+	private int niveaux_debloque;
+	private String[] color_themes = {"red","normal"};
+	private int [] highScore = new int[nombre_de_niveau];
 
 	public Profil(String name){
 		this.name = name;
@@ -103,4 +103,68 @@ public class Profil {
 		 }
 	 }
 
+
+	/**GET**/
+	public int getNombre_de_niveau() {
+		return nombre_de_niveau;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getCurrent_Level() {
+		return current_Level;
+	}
+
+	public int getNiveaux_debloque() {
+		return niveaux_debloque;
+	}
+
+	public String[] getColor_themes() {
+		return color_themes;
+	}
+
+	public int[] getHighScore() {
+		return highScore;
+	}
+
+	/**SET**/
+
+	public void setHighscoreI(int i, int val){
+		highScore[i] = val;
+	}
+
+
+	public void setNombre_de_niveau(int nombre_de_niveau) {
+		this.nombre_de_niveau = nombre_de_niveau;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCurrent_Level(int current_Level) {
+		this.current_Level = current_Level;
+	}
+
+	public void setNiveaux_debloque(int niveaux_debloque) {
+		this.niveaux_debloque = niveaux_debloque;
+	}
+
+	public void setColor_themes(String[] color_themes) {
+		this.color_themes = color_themes;
+	}
+
+	public void setHighScore(int[] highScore) {
+		this.highScore = highScore;
+	}
 }

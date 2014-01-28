@@ -10,8 +10,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class HighScore extends BasicGameState {
 	public static final int ID = 6;
 
-	public Titre titre;
-	public static Profil[] ALLPROFILE;
+	private Titre titre;
+	private static Profil[] ALLPROFILE;
 
 	@Override
 	public int getID() {
@@ -26,9 +26,9 @@ public class HighScore extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		Fenetre.image_bg.draw(0,0,container.getWidth(),container.getHeight());
 		for(int i = 0; i<ALLPROFILE.length; i++){
-			g.drawString(ALLPROFILE[i].name, 20,100+(i*20));
-			for(int j = 0; j<ALLPROFILE[i].highScore.length; j++){
-				g.drawString(""+ALLPROFILE[i].highScore[j], 150+(j*50),100+(i*20));
+			g.drawString(ALLPROFILE[i].getName(), 20,100+(i*20));
+			for(int j = 0; j<ALLPROFILE[i].getHighScore().length; j++){
+				g.drawString(""+ALLPROFILE[i].getHighScore()[j], 150+(j*50),100+(i*20));
 			}
 		}
 		titre.render(g);
@@ -39,4 +39,17 @@ public class HighScore extends BasicGameState {
 			game.enterState(MenuGame.ID);
 		}
 	}
+
+	/**GET**/
+	public static Profil[] getALLPROFILE() {
+		return ALLPROFILE;
+	}
+
+
+	/**SET**/
+
+	public static void setALLPROFILE(Profil[] ALLPROFILE) {
+		HighScore.ALLPROFILE = ALLPROFILE;
+	}
 }
+

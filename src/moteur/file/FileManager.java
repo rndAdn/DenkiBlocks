@@ -125,21 +125,21 @@ public class FileManager {
 		//TODO : Ajouter la lecture des highScore
 		ArrayList<String> profile_List = fileToArrayList(file);
 		Profil profile = new Profil();
-		profile.name = profile_List.get(0);
+		profile.setName(profile_List.get(0));
 		int cur = 1;
 		try{
 			cur = Integer.parseInt(profile_List.get(1));
 		}catch (NumberFormatException ignored){}
-		profile.current_Level = cur;
-		profile.niveaux_debloque = cur;
+		profile.setCurrent_Level(cur);
+		profile.setNiveaux_debloque(cur);
 		String [] highscoreStr=profile_List.get(2).split(",");
-		int [] highscoreInt = new int[profile.nombre_de_niveau];
+		int [] highscoreInt = new int[profile.getNombre_de_niveau()];
 		for (int i = 0; i<highscoreStr.length;i++){
 			highscoreInt[i] = Integer.parseInt(highscoreStr[i]);
 		}
-		profile.highScore = highscoreInt;
+		profile.setHighScore(highscoreInt);
 		String []theme = profile_List.get(3).split(",");
-		profile.color_themes = theme;
+		profile.setColor_themes(theme);
 		return profile;
 	}
 
@@ -209,7 +209,7 @@ public class FileManager {
 
 
 	public static void changeHighScore(String highScore,Profil profile) throws IOException {
-		File destination = new File(Fenetre.PROFILE_FOLDER+profile.name+".pfl");
+		File destination = new File(Fenetre.PROFILE_FOLDER+profile.getName()+".pfl");
 
 		BufferedWriter output = null;
 		try {
@@ -219,10 +219,10 @@ public class FileManager {
 		}
 		try {
 			assert output != null;
-			output.write(profile.name + "\r\n");
-			output.write(profile.niveaux_debloque+1 + "\r\n");
+			output.write(profile.getName() + "\r\n");
+			output.write(profile.getNiveaux_debloque()+1 + "\r\n");
 			output.write(highScore + "\r\n");
-			output.write(profile.color_themes[0]+","+profile.color_themes[1] + "\r\n");
+			output.write(profile.getColor_themes()[0]+","+profile.getColor_themes()[1] + "\r\n");
 			output.flush();
 		} catch (IOException ioe) {
 			System.out.println("erreur : " + ioe);

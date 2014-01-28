@@ -14,9 +14,9 @@ import java.util.Collections;
 public class ChoixNiveau extends BasicGameState {
 	public static final int ID = 4;
 
-	Button[] levelB;
-	String[] allMapTab;
-	public Titre titre;
+	private Button[] levelB;
+	private String[] allMapTab;
+	private  Titre titre;
 
 
 	@Override
@@ -46,7 +46,7 @@ public class ChoixNiveau extends BasicGameState {
 
 		titre.render(g);
 		for (int i = 0 ; i<allMapTab.length;i++){
-			if (i+1 > Fenetre.profilActif.niveaux_debloque){
+			if (i+1 > Fenetre.profilActif.getNiveaux_debloque()){
 				levelB[i].setBlockedImage();
 			}
 			levelB[i].render(g);
@@ -59,9 +59,9 @@ public class ChoixNiveau extends BasicGameState {
 			levelB[i].update(container);
 		}
 		for (int i = 0 ; i<allMapTab.length;i++){
-			if (levelB[i].isClicked() && (i+1)<= Fenetre.profilActif.niveaux_debloque) {
-				Fenetre.profilActif.current_Level =i+1;
-				Fenetre.profilActif.setLevel(Fenetre.profilActif.current_Level);
+			if (levelB[i].isClicked() && (i+1)<= Fenetre.profilActif.getNiveaux_debloque()) {
+				Fenetre.profilActif.setCurrent_Level(i+1);
+				Fenetre.profilActif.setLevel(Fenetre.profilActif.getCurrent_Level());
 				game.enterState(PlayLevel.ID);
 			}
 

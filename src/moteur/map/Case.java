@@ -14,7 +14,7 @@ public abstract class Case {
 	protected Case haut;
 	protected Case bas;
 	protected Case gauche;
-	public boolean canBeMove = false;
+	private boolean canBeMove = false;
 
 
 	public Case(int type){
@@ -47,9 +47,17 @@ public abstract class Case {
 
 	public Image getImage_Fg(){return image_fg;}
 
+	public boolean isCanBeMove() {
+		return canBeMove;
+	}
+
 	/*SET*/
 
 	public void setImage_Bg(Image image_bg){this.image_bg = image_bg;}
 
 	public void setImage_Fg(Image image_fg){this.image_fg = image_fg;}
+
+	public void setCanBeMove(boolean canBeMove) {
+		this.canBeMove = canBeMove;
+	}
 }

@@ -13,11 +13,11 @@ public class Map{
 	private int height;
 	private String name;
 	private Block[] blocksTab = new Block[5];
-	public String themeColor[];
-	public Image solImage;
-	public Image [] blockImages;
-	public Image [] oblstacleImages;
-	public int nombre_Mouvement = 0;
+	private String themeColor[];
+	private Image solImage;
+	private Image [] blockImages;
+	private Image [] oblstacleImages;
+	private int nombre_Mouvement = 0;
 
 	public Map(){
 		this.cases = null;
@@ -263,6 +263,10 @@ public class Map{
 
 	public String getName() {
 		return name;
+	}
+
+	public int getNombre_Mouvement() {
+		return nombre_Mouvement;
 	}
 
 	/*SET*/

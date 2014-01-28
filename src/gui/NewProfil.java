@@ -10,10 +10,10 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class NewProfil extends BasicGameState {
 	public static final int ID = 2;
-	Button play;
+	private Button play;
 	private TextField textfield;
 
-	public Titre titre;
+	private Titre titre;
 
 
 	@Override
