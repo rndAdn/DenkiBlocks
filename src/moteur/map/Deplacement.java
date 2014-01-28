@@ -46,7 +46,7 @@ public class Deplacement {
 			for(int j =0;j<x; j++){
 				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
 					map.getCases()[i+1][j] = map.getCases()[i][j];
-					map.getCases()[i][j] = new Vide(map.color_themes[1]);
+					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);
 				}
 			}
 		}
@@ -73,7 +73,7 @@ public class Deplacement {
 			for(int j =0;j<x; j++){
 				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
 					map.getCases()[i-1][j] = map.getCases()[i][j];
-					map.getCases()[i][j] = new Vide(map.color_themes[1]);
+					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);
 				}
 			}
 		}
@@ -100,7 +100,7 @@ public class Deplacement {
 			for(int j =x-1;j>0; j--){
 				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
 					map.getCases()[i][j+1] = map.getCases()[i][j];
-					map.getCases()[i][j] = new Vide(map.color_themes[1]);
+					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);
 				}
 			}
 		}
@@ -127,8 +127,8 @@ public class Deplacement {
 			for(int j = 0;j<x-1; j++){
 				if (map.getCases()[i][j] instanceof Block && map.getCases()[i][j].canBeMove){
 					map.getCases()[i][j-1] = map.getCases()[i][j];
-					System.out.println(map.color_themes);
-					map.getCases()[i][j] = new Vide(map.color_themes[1]);
+					System.out.println(/*map.color_themes*/);
+					map.getCases()[i][j] = new Vide(/*map.color_themes[1]*/);
 				}
 			}
 		}

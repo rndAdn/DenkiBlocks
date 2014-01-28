@@ -13,10 +13,10 @@ public class Map{
 	private int height;
 	private String name;
 	private Block[] blocksTab = new Block[5];
-	static public String[] color_themes;
-	public static Image solImage;
-	public static Image [] blockImages;
-	public static Image [] oblstacleImages;
+	public String themeColor[];
+	public Image solImage;
+	public Image [] blockImages;
+	public Image [] oblstacleImages;
 
 	public Map(){
 		this.cases = null;
@@ -26,11 +26,15 @@ public class Map{
 
 	}
 
-	public Map(int level){
+	public Map(int level, String[] theme){
+		this.themeColor = theme;
 		initialisationMap(Fenetre.LEVEL_FOLDER+level+".lvl");
+
 	}
-	public Map(String path){
+	public Map(String path, String[] theme){
+		this.themeColor = theme;
 		initialisationMap(Fenetre.LEVEL_FOLDER+path+".lvl");
+
 	}
 
 	private void initialisationMap(String path){
@@ -39,6 +43,9 @@ public class Map{
 		this.width = map.getWidth();
 		this.height = map.getHeight();
 		this.name = map.getName();
+		solImage =  FileManager.loadSolImg(themeColor[1]);
+		blockImages = FileManager.loadBlockImgT(themeColor[0]);
+		oblstacleImages= FileManager.loadObstacleImgT(themeColor[1]);
 		loadImages();
 		ArrayList<Block> liste = new ArrayList<>();
 		for(int i =0;i<this.getHeight(); i++){
@@ -229,6 +236,12 @@ public class Map{
 
 		}
 		checkFusionBlocks();
+		for(int i =0;i<this.getHeight(); i++){
+			for(int j =0;j<this.getWidth(); j++){
+				this.getCases()[i][j].setImage_Bg(solImage);
+			}
+
+		}
 	}
 
 

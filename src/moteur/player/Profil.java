@@ -17,17 +17,17 @@ public class Profil {
 	public String name;
 	public int current_Level;
 	public int niveaux_debloque;
-	public String[] color_themes = {"bleu","normal"};
+	public String[] color_themes = {"red","normal"};
 
 	public Profil(String name){
 		this.name = name;
 		initialisation(name);
 
+
 	}
 
 	public Profil(){
 		this.name = "";
-		map = new Map(1);
 		current_Level = 1;
 		niveaux_debloque = 1;
 
@@ -42,7 +42,8 @@ public class Profil {
 			this.name = profil.name;
 			this.current_Level = profil.current_Level;
 			this.niveaux_debloque = profil.current_Level;
-			this.map = profil.map;
+			this.color_themes = profil.color_themes;
+
 		}
 		else{
 			// On cree le fichier du nouveau profil
@@ -73,19 +74,15 @@ public class Profil {
 			this.name = name;
 			this.current_Level =1;
 			this.niveaux_debloque =1;
-			this.map = new Map(1);
 		}
-		Map.color_themes = color_themes;
-		Map.solImage =  FileManager.loadSolImg(color_themes[1]);
-		Map.blockImages = FileManager.loadBlockImgT(color_themes[0]);
-		Map.oblstacleImages= FileManager.loadObstacleImgT(color_themes[1]);
+
 
 
 	}
 
 	public boolean setLevel(int lvl){
 		if (lvl > nombre_de_niveau) return false;
-		this.map = new Map(lvl);
+		this.map = new Map(lvl,color_themes);
 		return true;
 
 	}

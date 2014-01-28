@@ -132,8 +132,8 @@ public class FileManager {
 		}catch (NumberFormatException ignored){}
 		profile.current_Level = cur;
 		profile.niveaux_debloque = cur;
-		profile.map = new Map(cur);
-
+		String []theme = profile_List.get(3).split(",");
+		profile.color_themes = theme;
 		return profile;
 	}
 

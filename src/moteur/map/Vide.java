@@ -8,9 +8,4 @@ public class Vide extends Case{
 	public Vide() {
 		super(2);
 	}
-	public Vide(String theme) {
-		super(2);
-
-		this.setImage_Bg(FileManager.loadSolImg(theme));
-	}
 }

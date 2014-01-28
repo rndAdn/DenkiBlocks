@@ -20,7 +20,6 @@ public class Game extends BasicGameState {
 		return ID;
 	}
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		map = new Map(this.level);
 		System.out.print("HELLO");
 	}
 
@@ -48,19 +47,19 @@ public class Game extends BasicGameState {
 
 		if (input.isKeyPressed(Keyboard.KEY_UP)) {
 			System.out.println("UP");
-			map.moveUp();
+			map.moveBlock("haut");
 		}
 		if (input.isKeyPressed(Keyboard.KEY_DOWN)) {
 			System.out.println("DOWN");
-			map.moveDown();
+			map.moveBlock("haut");
 		}
 		if (input.isKeyPressed(Keyboard.KEY_LEFT)) {
 			System.out.println("LEFT");
-			map.moveLeft();
+			map.moveBlock("haut");
 		}
 		if (input.isKeyPressed(Keyboard.KEY_RIGHT)) {
 			System.out.println("RIGHT");
-			map.moveRight();
+			map.moveBlock("haut");
 		}
 	}
 }

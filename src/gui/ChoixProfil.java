@@ -66,12 +66,14 @@ public class ChoixProfil extends BasicGameState {
 
 	}
 
-	private ArrayList<String> folderToAListe(){
+	private ArrayList<String> profileFolderToAListe(){
 		File f = new File(Fenetre.PROFILE_FOLDER);
 		ArrayList<File> files = new ArrayList<>(Arrays.asList(f.listFiles()));
 		ArrayList<String> tmp = new ArrayList<>();
 		for (File g : files){
-			tmp.add(g.getName().substring(0,g.getName().length()-4));
+			if(g.getName().substring(g.getName().length()-4).equals(".pfl")){
+				tmp.add(g.getName().substring(0,g.getName().length()-4));
+			}
 
 		}
 		Collections.sort(tmp);
@@ -79,7 +81,7 @@ public class ChoixProfil extends BasicGameState {
 	}
 
 	private void loadAllProfile(){
-		ArrayList<String> name = folderToAListe();
+		ArrayList<String> name = profileFolderToAListe();
 		profilesJoueurs = new Profil[name.size()];
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profilesJoueurs[i] = new Profil(name.get(i));
