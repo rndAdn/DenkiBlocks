@@ -72,6 +72,15 @@ public class Button extends Entity {
 			this.image_active = image_Blocked;
 	}
 
+	public void setNormalImage(){
+		try {
+			this.image_Blocked= new Image(Fenetre.MENU_FOLDER+"menuBlocked.png") ;
+			this.image = new Image(Fenetre.MENU_FOLDER+"menu.png") ;
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void render (Graphics gr){
 		renderImage.draw(position.x, position.y, width, height);
 

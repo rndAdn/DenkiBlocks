@@ -34,8 +34,8 @@ public class ChoixNiveau extends BasicGameState {
 		allMapTab = new String[nomLevel.size()];
 		for (int i = 0 ; i<allMapTab.length;i++){
 			allMapTab[i] = nomLevel.get(i);
-			levelB[i] = new Button("Niveau "+allMapTab[i],(container.getWidth()/2)-100/2,100+(i*(50+5)));
-			levelB[i].setWidthAndHeight(100, 50);
+			levelB[i] = new Button(allMapTab[i],(50+(i*(container.getWidth()))/(allMapTab.length+1)),100);
+			levelB[i].setWidthAndHeight(50, 50);
 		}
 	}
 
@@ -48,6 +48,9 @@ public class ChoixNiveau extends BasicGameState {
 		for (int i = 0 ; i<allMapTab.length;i++){
 			if (i+1 > Fenetre.profilActif.getNiveaux_debloque()){
 				levelB[i].setBlockedImage();
+			}
+			else {
+				levelB[i].setNormalImage();
 			}
 			levelB[i].render(g);
 		}
@@ -70,7 +73,6 @@ public class ChoixNiveau extends BasicGameState {
 			game.enterState(MenuGame.ID);
 		}
 	}
-
 	private ArrayList<String> folderToAListe(){
 		File f = new File(Fenetre.LEVEL_FOLDER);
 		ArrayList<File> files = new ArrayList<>(Arrays.asList(f.listFiles()));
