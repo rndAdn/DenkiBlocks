@@ -193,89 +193,12 @@ public class Map{
 	 * @return true
 	 */
 	public boolean checkAllFusionne(){
-<<<<<<< HEAD
-
-		return true;
-	}
-
-	private void canMoveDownEachBlock(){
-		for(int i =0;i<this.getHeight()-1; i++){
-			for(int j =0;j<this.getWidth(); j++){
-				if (i<this.getHeight()-1 && this.cases[i][j] instanceof Block && this.cases[i+1][j] instanceof Obstacle){
-					this.cases[i][j].setCanMove(false);
-				}
-				else if (i==this.getHeight()-1 && this.cases[i][j] instanceof Block){
-					this.cases[i][j].setCanMove(false);
-				}
-				else this.cases[i][j].setCanMove(true);
-			}
-		}
-		for(int i =0;i<this.getHeight()-1; i++){
-			for(int j =this.getWidth()-1;j>=0; j--){
-				if (i<this.getHeight()-2 && this.cases[i][j] instanceof Block && this.cases[i+1][j] instanceof Block){
-					this.cases[i][j].setCanMove(this.cases[i][j].getCanMoveBasRec());
-				}
-				if (i>0 && this.cases[i][j] instanceof Block && this.cases[i-1][j] instanceof Block){
-					this.cases[i][j].setCanMove(this.cases[i][j].getCanMoveHautRec());
-				}
-				if (j< this.getWidth()-1 && this.cases[i][j] instanceof Block && this.cases[i][j+1] instanceof Block){
-					this.cases[i][j].setCanMove(this.cases[i][j].getCanMoveDroitRec());
-				}
-				if (j>0&&this.cases[i][j] instanceof Block && this.cases[i][j-1] instanceof Block){
-					this.cases[i][j].setCanMove(this.cases[i][j].getCanMoveGaucheRec());
-				}
-			}
-		}
-	}
-
-	public boolean moveDown(){
-
-
-		canMoveDownEachBlock();
-		for(int i =this.getHeight()-2;i>=0; i--){
-			for(int j =0;j<this.getWidth(); j++){
-				if (this.cases[(this.getHeight()-1)-i][j] instanceof Block && this.cases[(this.getHeight()-1)-i][j].isCanMove())System.out.print("TRU ");
-				else if(this.cases[(this.getHeight()-1)-i][j] instanceof Block && !this.cases[(this.getHeight()-1)-i][j].isCanMove())System.out.print("FAL ");
-				if (this.cases[(this.getHeight()-1)-i][j] instanceof Obstacle)System.out.print("OBS ");
-				if (this.cases[(this.getHeight()-1)-i][j] instanceof Vide)System.out.print("    ");
-
-				if (this.cases[i][j] instanceof Block && this.cases[i][j].isCanMove()){
-					this.cases[i+1][j] = this.cases[i][j];
-					this.cases[i][j] = new Vide();
-				}
-			}
-			System.out.println();
-		}
-		checkFusionBlocks();
-		return true;
-	}
-	public boolean moveUp(){
-		for(int i =1;i<this.height; i++){
-			for(int j =0;j<this.getWidth(); j++){
-				if (this.cases[i][j] instanceof Block && !( this.cases[i-1][j] instanceof Obstacle)){
-
-					this.cases[i-1][j] = this.cases[i][j];
-					this.cases[i][j] = new Vide();
-				}
-			}
-		}
-		checkFusionBlocks();
-		return true;
-	}
-	public boolean moveRight(){
-		for(int i =1;i<this.height; i++){
-			for(int j =this.getWidth()-1;j>0; j--){
-				if (this.cases[i][j] instanceof Block && !( this.cases[i][j+1] instanceof Obstacle)){
-					this.cases[i][j+1] = this.cases[i][j];
-					this.cases[i][j] = new Vide();
-=======
 		Block tmp = null;
 		for(int i =0;i<this.getHeight(); i++){
 			for(int j =0;j<this.getWidth(); j++){
 				if (this.cases[i][j] instanceof Block && tmp == null){
 					tmp = (Block)this.cases[i][j];
 					continue;
->>>>>>> gui
 				}
 				else if (this.cases[i][j] instanceof Block && !tmp.listeBlock.contains(this.cases[i][j])) return false;
 			}
