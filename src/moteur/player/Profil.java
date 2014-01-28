@@ -91,6 +91,16 @@ public class Profil {
 	}
 
 
-
+	 public void saveHighScore(){
+		String s = "";
+		 for(int i = 0; i<highScore.length;i++){
+			s+=highScore[i]+",";
+		 }
+		 try {
+			 FileManager.changeHighScore(s,this);
+		 } catch (IOException e) {
+			 e.printStackTrace();
+		 }
+	 }
 
 }

@@ -206,4 +206,31 @@ public class FileManager {
 		return casesTab;
 
 	}
+
+
+	public static void changeHighScore(String highScore,Profil profile) throws IOException {
+		File destination = new File(Fenetre.PROFILE_FOLDER+profile.name+".pfl");
+
+		BufferedWriter output = null;
+		try {
+			output = new BufferedWriter(new FileWriter(destination));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			assert output != null;
+			output.write(profile.name + "\r\n");
+			output.write(profile.niveaux_debloque+1 + "\r\n");
+			output.write(highScore + "\r\n");
+			output.write(profile.color_themes[0]+","+profile.color_themes[1] + "\r\n");
+			output.flush();
+		} catch (IOException ioe) {
+			System.out.println("erreur : " + ioe);
+		}
+		try {
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
