@@ -12,7 +12,7 @@ public class Profil {
 
 	// TODO : Ajouter les highScores des maps
 
-	private int nombre_de_niveau = 5;
+	private int nombre_de_niveau = 10;
 	private Map map;
 	private String name;
 	private int current_Level;
