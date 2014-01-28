@@ -18,6 +18,7 @@ public class Profil {
 	public int current_Level;
 	public int niveaux_debloque;
 	public String[] color_themes = {"red","normal"};
+	public int [] highScore;
 
 	public Profil(String name){
 		this.name = name;
@@ -43,6 +44,7 @@ public class Profil {
 			this.current_Level = profil.current_Level;
 			this.niveaux_debloque = profil.current_Level;
 			this.color_themes = profil.color_themes;
+			this.highScore = profil.highScore;
 
 		}
 		else{
@@ -74,6 +76,7 @@ public class Profil {
 			this.name = name;
 			this.current_Level =1;
 			this.niveaux_debloque =1;
+			this.highScore = new int[]{0};
 		}
 
 

@@ -132,6 +132,12 @@ public class FileManager {
 		}catch (NumberFormatException ignored){}
 		profile.current_Level = cur;
 		profile.niveaux_debloque = cur;
+		String [] highscoreStr=profile_List.get(2).split(",");
+		int [] highscoreInt = new int[highscoreStr.length];
+		for (int i = 0; i<highscoreStr.length;i++){
+			highscoreInt[i] = Integer.parseInt(highscoreStr[i]);
+		}
+		profile.highScore = highscoreInt;
 		String []theme = profile_List.get(3).split(",");
 		profile.color_themes = theme;
 		return profile;

@@ -1,6 +1,7 @@
 package gui;
 
 import moteur.player.Profil;
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -33,7 +34,12 @@ public class ChoixProfil extends BasicGameState {
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profiles[i] = new Button(profilesJoueurs[i].name,(container.getWidth()/2)-100/2,100+(i*(50+5)));
 			profiles[i].setWidthAndHeight(100, 50);
+			for (int j = 0 ; j<profilesJoueurs[i].highScore.length;j++){
+				System.out.print(profilesJoueurs[i].highScore[j]+" ");
+			}
+			System.out.println();
 		}
+
 
 	}
 
@@ -86,6 +92,7 @@ public class ChoixProfil extends BasicGameState {
 		for (int i = 0 ; i<profilesJoueurs.length;i++){
 			profilesJoueurs[i] = new Profil(name.get(i));
 		}
+		HighScore.ALLPROFILE = profilesJoueurs;
 	}
 
 }
