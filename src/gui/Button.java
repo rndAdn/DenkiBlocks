@@ -10,6 +10,7 @@ import java.awt.Font;
 
 public class Button extends Entity {
 
+
 	private Image image = null;
 	private Image image_active = null;
 	private Image image_Blocked = null;
@@ -68,17 +69,7 @@ public class Button extends Entity {
 	}
 
 	public void setBlockedImage(){
-			this.image = image_Blocked;
-			this.image_active = image_Blocked;
-	}
-
-	public void setNormalImage(){
-		try {
-			this.image_Blocked= new Image(Fenetre.MENU_FOLDER+"menuBlocked.png") ;
-			this.image = new Image(Fenetre.MENU_FOLDER+"menu.png") ;
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+			this.renderImage = image_Blocked;
 	}
 
 	public void render (Graphics gr){

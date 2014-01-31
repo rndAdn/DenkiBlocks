@@ -49,9 +49,7 @@ public class ChoixNiveau extends BasicGameState {
 			if (i+1 > Fenetre.profilActif.getNiveaux_debloque()){
 				levelB[i].setBlockedImage();
 			}
-			else {
-				levelB[i].setNormalImage();
-			}
+
 			levelB[i].render(g);
 		}
 	}
