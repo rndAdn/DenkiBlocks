@@ -18,7 +18,7 @@ public class Profil {
 	private int current_Level;
 	private int niveaux_debloque;
 	private String[] color_themes = {"red","normal"};
-	private int [] highScore = new int[nombre_de_niveau];
+	private int [] highScore = new int[10];
 
 	public Profil(String name){
 		this.name = name;
@@ -136,7 +136,8 @@ public class Profil {
 	/**SET**/
 
 	public void setHighscoreI(int i, int val){
-		highScore[i] = val;
+		System.out.println(this.name+" i = "+i+" val = "+val);
+		this.highScore[i-1] = val;
 	}
 
 
